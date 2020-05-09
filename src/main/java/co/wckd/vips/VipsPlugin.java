@@ -1,6 +1,7 @@
 package co.wckd.vips;
 
 import co.wckd.boilerplate.adapter.Adapter;
+import co.wckd.boilerplate.adapter.AdapterImpl;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.vips.adapter.*;
 import co.wckd.vips.entity.VipType;
@@ -27,6 +28,16 @@ public class VipsPlugin extends BoilerplatePlugin {
     }
 
     @Override
+    public void load() {
+        adapter = new AdapterImpl();
+        adapter.registerAdapter(String.class, PrettyName.class, new StringToPrettyNameAdapter());
+        adapter.registerAdapter(String[].class, Permissions.class, new StringArrayToPermissionsAdapter());
+        adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
+        adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
+        adapter.registerAdapter(File.class, VipType.class, new FileToVipTypeAdapter());
+    }
+
+    @Override
     public void enable() {
 
     }
@@ -35,16 +46,4 @@ public class VipsPlugin extends BoilerplatePlugin {
     public void disable() {
 
     }
-
-    @Override
-    public void load() {
-        adapter = getService(Adapter.class);
-        adapter.registerAdapter(String.class, PrettyName.class, new StringToPrettyNameAdapter());
-        adapter.registerAdapter(String[].class, Permissions.class, new StringArrayToPermissionsAdapter());
-        adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
-        adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
-        adapter.registerAdapter(File.class, VipType.class, new FileToVipTypeAdapter());
-        saveDefaultConfig();
-    }
-
 }
