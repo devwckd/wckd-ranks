@@ -12,6 +12,7 @@ import co.wckd.vips.entity.section.Title;
 import co.wckd.vips.lifecycle.FileLifecycle;
 import co.wckd.vips.lifecycle.VipTypeLifecycle;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 
 import java.io.File;
@@ -19,17 +20,12 @@ import java.io.File;
 @Getter
 public class VipsPlugin extends BoilerplatePlugin {
 
+    private final Adapter adapter = new AdapterImpl();
     private final FileLifecycle fileLifecycle = lifecycle(new FileLifecycle(this), 0);
     private final VipTypeLifecycle vipTypeLifecycle = lifecycle(new VipTypeLifecycle(this), 1);
-    private Adapter adapter;
-
-    public static VipsPlugin getInstance() {
-        return getPlugin(VipsPlugin.class);
-    }
 
     @Override
     public void load() {
-        adapter = new AdapterImpl();
         adapter.registerAdapter(String.class, PrettyName.class, new StringToPrettyNameAdapter());
         adapter.registerAdapter(String[].class, Permissions.class, new StringArrayToPermissionsAdapter());
         adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
@@ -46,4 +42,13 @@ public class VipsPlugin extends BoilerplatePlugin {
     public void disable() {
 
     }
+
+    public void log(String string) {
+        Bukkit.getConsoleSender().sendMessage("[" + getDescription().getName() + "] " + string);
+    }
+
+    public static VipsPlugin getInstance() {
+        return getPlugin(VipsPlugin.class);
+    }
+
 }

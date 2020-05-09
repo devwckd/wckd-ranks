@@ -12,31 +12,32 @@ public class VipTypeLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;
     private final Adapter adapter;
-    private final File vipTypeFolder;
     private final VipTypeCache vipTypeCache;
+
+    private File vipTypeFolder;
 
     public VipTypeLifecycle(VipsPlugin plugin) {
         this.plugin = plugin;
         this.adapter = plugin.getAdapter();
-        this.vipTypeFolder = plugin.getFileLifecycle().getVipTypeFolder();
         this.vipTypeCache = new VipTypeCache();
     }
 
     @Override
     public void enable() {
+
+        vipTypeFolder = plugin.getFileLifecycle().getVipTypeFolder();
+
+        plugin.log("Loading vip types...");
         loadVipTypes();
+        plugin.log(vipTypeCache.getVipTypes().size() + " vip types loaded.");
+
     }
 
     private void loadVipTypes() {
 
-        File[] listFiles = vipTypeFolder.listFiles();
+        File[] files = vipTypeFolder.listFiles();
 
-        if (listFiles == null) {
-            // TODO: log error
-            return;
-        }
-
-        for (File file : listFiles) {
+        for (File file : files) {
             VipType type = adapter.adapt(file, VipType.class);
             if (type != null) vipTypeCache.insert(type.getIdentifier(), type);
         }
