@@ -44,6 +44,7 @@ public class VipsPlugin extends BoilerplatePlugin {
         adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
         adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
         adapter.registerAdapter(File.class, VipType.class, new FileToVipTypeAdapter());
+        saveDefaultConfig();
     }
 
 }
