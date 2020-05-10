@@ -2,13 +2,9 @@ package co.wckd.vips.lifecycle;
 
 import co.wckd.boilerplate.lifecycle.Lifecycle;
 import co.wckd.vips.VipsPlugin;
-import co.wckd.vips.cache.VipPlayerCache;
 import co.wckd.vips.database.DatabaseConnection;
 import co.wckd.vips.database.impl.MySQLConnection;
 import co.wckd.vips.database.impl.SQLiteConnection;
-import co.wckd.vips.repository.DatabaseRepository;
-import co.wckd.vips.repository.MySQLRepository;
-import co.wckd.vips.repository.SQLiteRepository;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -19,9 +15,8 @@ public class DatabaseLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;
     private FileConfiguration configuration;
-    private VipPlayerCache vipPlayerCache;
+    private String type;
     private DatabaseConnection databaseConnection;
-    private DatabaseRepository databaseRepository;
 
     public DatabaseLifecycle(VipsPlugin plugin) {
         this.plugin = plugin;
@@ -31,14 +26,13 @@ public class DatabaseLifecycle extends Lifecycle {
     public void enable() {
 
         configuration = plugin.getFileLifecycle().getConfiguration();
-        vipPlayerCache = new VipPlayerCache();
         loadDatabase();
 
     }
 
     private void loadDatabase() {
 
-        String type = configuration.getString("storage.type");
+        type = configuration.getString("database.type");
         if (type == null) {
             return;
         }
@@ -61,7 +55,7 @@ public class DatabaseLifecycle extends Lifecycle {
     private void useSQLite() {
         String schema = plugin.getConfig().getString("database.schema");
         databaseConnection = new SQLiteConnection(new File(plugin.getDataFolder(), schema + ".db"));
-        databaseRepository = new SQLiteRepository(plugin, databaseConnection);
+        databaseConnection.openConnection();
     }
 
     private void useMySQL() {
@@ -71,7 +65,7 @@ public class DatabaseLifecycle extends Lifecycle {
                 configuration.getString("database.password"),
                 configuration.getString("database.schema")
         );
-        databaseRepository = new MySQLRepository(plugin, databaseConnection);
+        databaseConnection.openConnection();
     }
 
 }

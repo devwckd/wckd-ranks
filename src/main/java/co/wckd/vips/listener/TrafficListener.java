@@ -3,7 +3,7 @@ package co.wckd.vips.listener;
 import co.wckd.vips.VipsPlugin;
 import co.wckd.vips.cache.VipPlayerCache;
 import co.wckd.vips.entity.VipPlayer;
-import co.wckd.vips.repository.DatabaseRepository;
+import co.wckd.vips.repository.vipplayer.VipPlayerRepository;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,14 +17,14 @@ public class TrafficListener implements Listener {
 
     private final VipsPlugin plugin;
     private final ExecutorService executorService;
-    private final DatabaseRepository databaseRepository;
+    private final VipPlayerRepository vipPlayerRepository;
     private final VipPlayerCache vipPlayerCache;
 
     public TrafficListener(VipsPlugin plugin) {
         this.plugin = plugin;
         this.executorService = plugin.getExecutorService();
-        this.databaseRepository = plugin.getDatabaseLifecycle().getDatabaseRepository();
-        this.vipPlayerCache = plugin.getDatabaseLifecycle().getVipPlayerCache();
+        this.vipPlayerRepository = plugin.getVipPlayerLifecycle().getVipPlayerRepository();
+        this.vipPlayerCache = plugin.getVipPlayerLifecycle().getVipPlayerCache();
     }
 
     @EventHandler
@@ -34,7 +34,7 @@ public class TrafficListener implements Listener {
             Player player = event.getPlayer();
             UUID uniqueId = player.getUniqueId();
 
-            VipPlayer vipPlayer = databaseRepository.find(uniqueId);
+            VipPlayer vipPlayer = vipPlayerRepository.find(uniqueId);
             if (vipPlayer == null) vipPlayer = new VipPlayer();
 
             vipPlayerCache.insert(uniqueId, vipPlayer);
@@ -50,7 +50,7 @@ public class TrafficListener implements Listener {
             UUID uniqueId = player.getUniqueId();
 
             VipPlayer vipPlayer = vipPlayerCache.find(uniqueId);
-            databaseRepository.insert(uniqueId, vipPlayer);
+            vipPlayerRepository.insert(uniqueId, vipPlayer);
 
             vipPlayerCache.delete(uniqueId);
 

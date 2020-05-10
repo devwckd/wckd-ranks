@@ -63,6 +63,11 @@
             <artifactId>wckd-boilerplate</artifactId>
             <version>180c84d15f</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.SaiintBrisson</groupId>
+            <artifactId>command-framework</artifactId>
+            <version>eed43b62e8</version>
+        </dependency>
     </dependencies>
 
 </project>

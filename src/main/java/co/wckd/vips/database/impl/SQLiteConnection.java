@@ -19,12 +19,15 @@ public class SQLiteConnection implements DatabaseConnection {
     public void openConnection() {
         try {
 
+            if (!file.exists())
+                file.createNewFile();
+
             Class.forName("org.sqlite.JDBC");
             connect();
             createTables();
 
         } catch (Exception exception) {
-
+            exception.printStackTrace();
         }
     }
 

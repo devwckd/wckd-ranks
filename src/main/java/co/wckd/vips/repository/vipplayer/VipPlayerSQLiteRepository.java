@@ -1,4 +1,4 @@
-package co.wckd.vips.repository;
+package co.wckd.vips.repository.vipplayer;
 
 import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.vips.VipsPlugin;
@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-public class SQLiteRepository extends DatabaseRepository {
+public class VipPlayerSQLiteRepository extends VipPlayerRepository {
 
     private static final String FIND_STATEMENT = "SELECT * FROM vips WHERE uuid = ?;";
     private static final String INSERT_STATEMENT = "REPLACE INTO vips VALUES (?, ?, ?);";
@@ -21,7 +21,7 @@ public class SQLiteRepository extends DatabaseRepository {
     private final Adapter adapter;
     private final DatabaseConnection databaseConnection;
 
-    public SQLiteRepository(VipsPlugin plugin, DatabaseConnection databaseConnection) {
+    public VipPlayerSQLiteRepository(VipsPlugin plugin, DatabaseConnection databaseConnection) {
         this.plugin = plugin;
         this.adapter = plugin.getAdapter();
         this.databaseConnection = databaseConnection;
