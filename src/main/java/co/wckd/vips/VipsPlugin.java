@@ -19,6 +19,7 @@ import co.wckd.vips.lifecycle.FileLifecycle;
 import co.wckd.vips.lifecycle.VipPlayerLifecycle;
 import co.wckd.vips.lifecycle.VipTypeLifecycle;
 import co.wckd.vips.listener.TrafficListener;
+import co.wckd.vips.util.TimeUtils;
 import lombok.Getter;
 import me.saiintbrisson.commands.CommandFrame;
 import org.bukkit.Bukkit;
@@ -68,12 +69,30 @@ public class VipsPlugin extends BoilerplatePlugin {
     }
 
     private void registerCommands() {
-        CommandFrame commandFrame = new CommandFrame(this);
+        CommandFrame commandFrame = new CommandFrame(this, false);
+        registerTypes(commandFrame);
         commandFrame.registerCommands(
                 new VipCommand(),
                 new VipKeyCommand(),
-                new VipRankCommand()
+                new VipRankCommand(this)
         );
+    }
+
+    private void registerTypes(CommandFrame commandFrame) {
+        commandFrame.registerType(String.class, String::valueOf);
+        commandFrame.registerType(Character.class, (argument) -> argument.charAt(0));
+        commandFrame.registerType(Integer.class, Integer::valueOf);
+        commandFrame.registerType(Double.class, Double::valueOf);
+        commandFrame.registerType(Long.class, TimeUtils::millisFromString);
+        commandFrame.registerType(Boolean.class, Boolean::valueOf);
+        commandFrame.registerType(Byte.class, Byte::valueOf);
+        commandFrame.registerType(Character.TYPE, (argument) -> argument.charAt(0));
+        commandFrame.registerType(Integer.TYPE, Integer::parseInt);
+        commandFrame.registerType(Double.TYPE, Double::parseDouble);
+        commandFrame.registerType(Long.TYPE, Long::parseLong);
+        commandFrame.registerType(Boolean.TYPE, Boolean::parseBoolean);
+        commandFrame.registerType(Byte.TYPE, Byte::parseByte);
+        commandFrame.registerType(VipType.class, (argument) -> vipTypeLifecycle.getVipTypeCache().find(argument.toLowerCase()));
     }
 
     public void log(String string) {

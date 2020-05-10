@@ -12,6 +12,11 @@ public class Vip {
     private final VipType type;
     private Long time;
 
+    public void activate(VipPlayer vipPlayer) {
+
+
+    }
+
     private void increaseTime(Long time) {
         this.time += time;
     }

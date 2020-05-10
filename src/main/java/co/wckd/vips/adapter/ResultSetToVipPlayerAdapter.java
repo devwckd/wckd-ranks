@@ -7,6 +7,9 @@ import co.wckd.vips.entity.Vip;
 import co.wckd.vips.entity.VipPlayer;
 
 import java.sql.ResultSet;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResultSetToVipPlayerAdapter implements ObjectAdapter<ResultSet, VipPlayer> {
 
@@ -17,13 +20,20 @@ public class ResultSetToVipPlayerAdapter implements ObjectAdapter<ResultSet, Vip
     public VipPlayer adapt(ResultSet resultSet) {
         try {
 
-            VipPlayer vipPlayer = new VipPlayer();
+            Map<String, Vip> vips = new ConcurrentHashMap<>();
 
+            String uuid = null;
             while (resultSet.next()) {
                 Vip vip = ADAPTER.adapt(resultSet, Vip.class);
-                if (vip != null) vipPlayer.addVip(vip.getType().getIdentifier(), vip);
+                if (vip == null) continue;
+                vips.put(vip.getType().getIdentifier(), vip);
+                uuid = resultSet.getString("uuid");
             }
 
+            if (vips.isEmpty() || uuid == null) return null;
+
+            VipPlayer vipPlayer = new VipPlayer(UUID.fromString(uuid));
+            vipPlayer.addVips(vips);
             return vipPlayer;
 
         } catch (Exception exception) {
