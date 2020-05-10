@@ -1,0 +1,8 @@
+database:
+
+  type: SQLite
+
+  hostname: "localhost"
+  username: "root"
+  password: ""
+  schema: "db"
