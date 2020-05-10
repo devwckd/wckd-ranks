@@ -1,27 +1,27 @@
 package co.wckd.vips.lifecycle;
 
 import co.wckd.boilerplate.lifecycle.Lifecycle;
-import co.wckd.boilerplate.object.DAO;
 import co.wckd.vips.VipsPlugin;
+import co.wckd.vips.cache.VipPlayerCache;
 import co.wckd.vips.database.DatabaseConnection;
 import co.wckd.vips.database.impl.MySQLConnection;
 import co.wckd.vips.database.impl.SQLiteConnection;
-import co.wckd.vips.entity.VipPlayer;
+import co.wckd.vips.repository.DatabaseRepository;
 import co.wckd.vips.repository.MySQLRepository;
 import co.wckd.vips.repository.SQLiteRepository;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
-import java.util.UUID;
 
 @Getter
 public class DatabaseLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;
     private FileConfiguration configuration;
+    private VipPlayerCache vipPlayerCache;
     private DatabaseConnection databaseConnection;
-    private DAO<UUID, VipPlayer> databaseRepository;
+    private DatabaseRepository databaseRepository;
 
     public DatabaseLifecycle(VipsPlugin plugin) {
         this.plugin = plugin;
@@ -31,6 +31,7 @@ public class DatabaseLifecycle extends Lifecycle {
     public void enable() {
 
         configuration = plugin.getFileLifecycle().getConfiguration();
+        vipPlayerCache = new VipPlayerCache();
         loadDatabase();
 
     }

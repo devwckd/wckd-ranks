@@ -12,16 +12,22 @@ import co.wckd.vips.entity.section.Title;
 import co.wckd.vips.lifecycle.DatabaseLifecycle;
 import co.wckd.vips.lifecycle.FileLifecycle;
 import co.wckd.vips.lifecycle.VipTypeLifecycle;
+import co.wckd.vips.listener.TrafficListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
+import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Getter
 public class VipsPlugin extends BoilerplatePlugin {
 
     private final Adapter adapter = new AdapterImpl();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     private final FileLifecycle fileLifecycle = lifecycle(new FileLifecycle(this), 0);
     private final VipTypeLifecycle vipTypeLifecycle = lifecycle(new VipTypeLifecycle(this), 1);
     private final DatabaseLifecycle databaseLifecycle = lifecycle(new DatabaseLifecycle(this), 2);
@@ -37,12 +43,17 @@ public class VipsPlugin extends BoilerplatePlugin {
 
     @Override
     public void enable() {
-
+        registerListeners();
     }
 
     @Override
     public void disable() {
 
+    }
+
+    private void registerListeners() {
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new TrafficListener(this), this);
     }
 
     public void log(String string) {

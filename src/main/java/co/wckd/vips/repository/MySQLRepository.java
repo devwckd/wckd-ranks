@@ -1,7 +1,6 @@
 package co.wckd.vips.repository;
 
 import co.wckd.boilerplate.adapter.Adapter;
-import co.wckd.boilerplate.object.DAO;
 import co.wckd.vips.VipsPlugin;
 import co.wckd.vips.database.DatabaseConnection;
 import co.wckd.vips.entity.Vip;
@@ -12,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-public class MySQLRepository implements DAO<UUID, VipPlayer> {
+public class MySQLRepository extends DatabaseRepository {
 
     private static final String FIND_STATEMENT = "SELECT * FROM vips WHERE uuid = ?;";
     private static final String INSERT_STATEMENT = "INSERT INTO vips VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE time = ?;";
