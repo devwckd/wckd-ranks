@@ -5,9 +5,11 @@ import co.wckd.boilerplate.lifecycle.Lifecycle;
 import co.wckd.vips.VipsPlugin;
 import co.wckd.vips.cache.VipTypeCache;
 import co.wckd.vips.entity.VipType;
+import lombok.Getter;
 
 import java.io.File;
 
+@Getter
 public class VipTypeLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;

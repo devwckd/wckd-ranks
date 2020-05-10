@@ -4,6 +4,8 @@ import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.adapter.AdapterImpl;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.vips.adapter.*;
+import co.wckd.vips.entity.Vip;
+import co.wckd.vips.entity.VipPlayer;
 import co.wckd.vips.entity.VipType;
 import co.wckd.vips.entity.section.Items;
 import co.wckd.vips.entity.section.Permissions;
@@ -19,6 +21,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -39,6 +42,8 @@ public class VipsPlugin extends BoilerplatePlugin {
         adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
         adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
         adapter.registerAdapter(File.class, VipType.class, new FileToVipTypeAdapter());
+        adapter.registerAdapter(ResultSet.class, Vip.class, new ResultSetToVipAdapter());
+        adapter.registerAdapter(ResultSet.class, VipPlayer.class, new ResultSetToVipPlayerAdapter());
     }
 
     @Override
