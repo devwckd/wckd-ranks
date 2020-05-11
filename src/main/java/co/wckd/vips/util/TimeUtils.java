@@ -16,7 +16,7 @@ public class TimeUtils {
             .put('m', 30 * 24 * 60 * 60 * 1000L)
             .build();
 
-    public static long millisFromString(String time) {
+    public static Long millisFromString(String time) {
 
         int timeLenght = time.length();
         char last = time.charAt(timeLenght - 1);
@@ -28,7 +28,7 @@ public class TimeUtils {
 
             toParse = time.substring(0, timeLenght - 1);
             multiplier = TIME_VALUES.get(last);
-            if (multiplier == null) return -1;
+            if (multiplier == null) return null;
 
         }
 
@@ -37,7 +37,7 @@ public class TimeUtils {
         try {
             timeInt = Integer.parseInt(toParse);
         } catch (Exception $) {
-            return -1;
+            return null;
         }
 
         return timeInt * multiplier;

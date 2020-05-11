@@ -5,6 +5,7 @@ import co.wckd.vips.cache.VipPlayerCache;
 import co.wckd.vips.entity.Vip;
 import co.wckd.vips.entity.VipPlayer;
 import co.wckd.vips.entity.VipType;
+import co.wckd.vips.util.TimeUtils;
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;
 import me.saiintbrisson.commands.argument.Argument;
@@ -43,10 +44,20 @@ public class VipRankCommand {
             Execution execution,
             Player player,
             VipType type,
-            @Argument(nullable = true, defaultValue = "-1") long time
+            @Argument(nullable = true) String timeString
     ) {
 
         VipPlayer vipPlayer = vipPlayerCache.find(player.getUniqueId());
+        if (vipPlayer == null) {
+            System.out.println("deu merda menó");
+            return;
+        }
+
+        Long time = TimeUtils.millisFromString(timeString);
+        if (time == null) {
+            execution.sendMessage("Wrong time");
+            return;
+        }
 
         Vip vip = Vip
                 .builder()
@@ -54,6 +65,7 @@ public class VipRankCommand {
                 .time(time)
                 .build();
 
+        vip.activate(vipPlayer);
 
     }
 

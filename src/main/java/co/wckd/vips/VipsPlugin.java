@@ -2,6 +2,7 @@ package co.wckd.vips;
 
 import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.adapter.AdapterImpl;
+import co.wckd.boilerplate.adapter.CSToISAdapter;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.vips.adapter.*;
 import co.wckd.vips.command.VipCommand;
@@ -10,10 +11,7 @@ import co.wckd.vips.command.VipRankCommand;
 import co.wckd.vips.entity.Vip;
 import co.wckd.vips.entity.VipPlayer;
 import co.wckd.vips.entity.VipType;
-import co.wckd.vips.entity.section.Items;
-import co.wckd.vips.entity.section.Permissions;
-import co.wckd.vips.entity.section.PrettyName;
-import co.wckd.vips.entity.section.Title;
+import co.wckd.vips.entity.section.*;
 import co.wckd.vips.lifecycle.DatabaseLifecycle;
 import co.wckd.vips.lifecycle.FileLifecycle;
 import co.wckd.vips.lifecycle.VipPlayerLifecycle;
@@ -24,6 +22,8 @@ import lombok.Getter;
 import me.saiintbrisson.commands.CommandFrame;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
@@ -44,8 +44,10 @@ public class VipsPlugin extends BoilerplatePlugin {
 
     @Override
     public void load() {
+        adapter.registerAdapter(MemorySection.class, ItemStack.class, new CSToISAdapter());
         adapter.registerAdapter(String.class, PrettyName.class, new StringToPrettyNameAdapter());
         adapter.registerAdapter(String[].class, Permissions.class, new StringArrayToPermissionsAdapter());
+        adapter.registerAdapter(String[].class, Commands.class, new StringArrayToCommandsAdapter());
         adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
         adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
         adapter.registerAdapter(File.class, VipType.class, new FileToVipTypeAdapter());
@@ -93,6 +95,7 @@ public class VipsPlugin extends BoilerplatePlugin {
         commandFrame.registerType(Boolean.TYPE, Boolean::parseBoolean);
         commandFrame.registerType(Byte.TYPE, Byte::parseByte);
         commandFrame.registerType(VipType.class, (argument) -> vipTypeLifecycle.getVipTypeCache().find(argument.toLowerCase()));
+        commandFrame.registerType(Player.class, Bukkit::getPlayer);
     }
 
     public void log(String string) {

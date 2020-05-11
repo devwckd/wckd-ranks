@@ -5,7 +5,7 @@ import co.wckd.vips.entity.section.Commands;
 
 import java.util.Arrays;
 
-public class StringArrayToCommandAdapter implements ObjectAdapter<String[], Commands> {
+public class StringArrayToCommandsAdapter implements ObjectAdapter<String[], Commands> {
 
     @Override
     public Commands adapt(String[] strings) {

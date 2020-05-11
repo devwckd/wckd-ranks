@@ -35,7 +35,7 @@ public class TrafficListener implements Listener {
             UUID uniqueId = player.getUniqueId();
 
             VipPlayer vipPlayer = vipPlayerRepository.find(uniqueId);
-            if (vipPlayer == null) vipPlayer = new VipPlayer();
+            if (vipPlayer == null) vipPlayer = new VipPlayer(uniqueId);
 
             vipPlayerCache.insert(uniqueId, vipPlayer);
 

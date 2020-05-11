@@ -12,7 +12,7 @@ import lombok.Getter;
 public class VipPlayerLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;
-    private final String type;
+    private String type;
     private VipPlayerCache vipPlayerCache;
     private VipPlayerRepository vipPlayerRepository;
 
@@ -24,6 +24,7 @@ public class VipPlayerLifecycle extends Lifecycle {
     @Override
     public void enable() {
 
+        type = plugin.getDatabaseLifecycle().getType();
         vipPlayerCache = new VipPlayerCache();
         loadRepository();
 
@@ -44,6 +45,8 @@ public class VipPlayerLifecycle extends Lifecycle {
             vipPlayerRepository = new VipPlayerMySQLRepository(plugin, plugin.getDatabaseLifecycle().getDatabaseConnection());
             return;
         }
+
+        vipPlayerRepository = new VipPlayerSQLiteRepository(plugin, plugin.getDatabaseLifecycle().getDatabaseConnection());
 
     }
 

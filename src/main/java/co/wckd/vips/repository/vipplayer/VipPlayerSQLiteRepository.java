@@ -36,6 +36,7 @@ public class VipPlayerSQLiteRepository extends VipPlayerRepository {
             return adapter.adapt(resultSet, VipPlayer.class);
 
         } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -56,6 +57,7 @@ public class VipPlayerSQLiteRepository extends VipPlayerRepository {
             statement.executeBatch();
             connection.setAutoCommit(true);
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
