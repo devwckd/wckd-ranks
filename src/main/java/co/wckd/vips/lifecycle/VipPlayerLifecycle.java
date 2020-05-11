@@ -3,9 +3,9 @@ package co.wckd.vips.lifecycle;
 import co.wckd.boilerplate.lifecycle.Lifecycle;
 import co.wckd.vips.VipsPlugin;
 import co.wckd.vips.cache.VipPlayerCache;
-import co.wckd.vips.repository.vipplayer.VipPlayerMySQLRepository;
 import co.wckd.vips.repository.vipplayer.VipPlayerRepository;
-import co.wckd.vips.repository.vipplayer.VipPlayerSQLiteRepository;
+import co.wckd.vips.repository.vipplayer.impl.VipPlayerMySQLRepository;
+import co.wckd.vips.repository.vipplayer.impl.VipPlayerSQLiteRepository;
 import lombok.Getter;
 
 @Getter

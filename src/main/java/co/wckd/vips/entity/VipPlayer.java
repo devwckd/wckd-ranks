@@ -13,13 +13,22 @@ public class VipPlayer {
 
     private final UUID uuid;
     private final Map<String, Vip> vips;
+    private Vip active;
 
     public VipPlayer(UUID uuid) {
         this.uuid = uuid;
         this.vips = new ConcurrentHashMap<>();
+        this.active = null;
     }
 
     public void addVip(String identifier, Vip vip) {
+        if (active == null) active = vip;
+
+        if (vips.containsKey(identifier)) {
+            vips.get(identifier).increaseTime(vip.getTime());
+            return;
+        }
+
         vips.put(identifier, vip);
     }
 

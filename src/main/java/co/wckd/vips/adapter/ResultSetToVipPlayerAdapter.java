@@ -21,12 +21,18 @@ public class ResultSetToVipPlayerAdapter implements ObjectAdapter<ResultSet, Vip
         try {
 
             Map<String, Vip> vips = new ConcurrentHashMap<>();
+            Vip active = null;
 
             String uuid = null;
             while (resultSet.next()) {
+
                 Vip vip = ADAPTER.adapt(resultSet, ResultSet.class, Vip.class);
                 if (vip == null) continue;
                 vips.put(vip.getType().getIdentifier(), vip);
+
+                if (resultSet.getBoolean("is_active") && active == null)
+                    active = vip;
+
                 uuid = resultSet.getString("uuid");
             }
 
@@ -34,6 +40,7 @@ public class ResultSetToVipPlayerAdapter implements ObjectAdapter<ResultSet, Vip
 
             VipPlayer vipPlayer = new VipPlayer(UUID.fromString(uuid));
             vipPlayer.addVips(vips);
+            vipPlayer.setActive(active);
             return vipPlayer;
 
         } catch (Exception exception) {

@@ -6,3 +6,7 @@ database:
   username: "root"
   password: ""
   schema: "db"
+
+config:
+
+  lang: en_US

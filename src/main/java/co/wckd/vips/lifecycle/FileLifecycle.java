@@ -2,8 +2,11 @@ package co.wckd.vips.lifecycle;
 
 import co.wckd.boilerplate.lifecycle.Lifecycle;
 import co.wckd.vips.VipsPlugin;
+import co.wckd.vips.util.Lang;
+import co.wckd.vips.util.Logs;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +18,9 @@ public class FileLifecycle extends Lifecycle {
 
     private final VipsPlugin plugin;
     private File vipTypeFolder;
+    private File langFolder;
     private FileConfiguration configuration;
+    private Lang lang;
 
     public FileLifecycle(VipsPlugin plugin) {
         this.plugin = plugin;
@@ -41,6 +46,33 @@ public class FileLifecycle extends Lifecycle {
             copyResource("_example.yml", new File(vipTypeFolder, "_example.yml"));
         }
 
+        langFolder = new File(dataFolder, "/lang/");
+        if (!langFolder.exists()) {
+            langFolder.mkdirs();
+            copyResource("en_us.yml", new File(langFolder, "en_us.yml"));
+            copyResource("pt_br.yml", new File(langFolder, "pt_br.yml"));
+        }
+        loadLang();
+
+    }
+
+    private void loadLang() {
+
+        String langString = configuration.getString("config.lang", "en_US");
+        File langFile = new File(langFolder, langString.toLowerCase() + ".yml");
+        if (!langFile.exists()) {
+
+            langFile = new File(langFolder, "en_us.yml");
+            if (!langFile.exists())
+                copyResource("en_us.yml", langFile);
+
+            Logs.consoleLog("Language file not found, returning to default (en_US).");
+
+        }
+
+        YamlConfiguration langConfiguration = YamlConfiguration.loadConfiguration(langFile);
+        lang = new Lang(langConfiguration);
+
     }
 
     private void copyResource(String name, File to) {
@@ -60,8 +92,7 @@ public class FileLifecycle extends Lifecycle {
             out.close();
             in.close();
         } catch (Exception exception) {
-            exception.printStackTrace();
-            // TODO: log
+            Logs.consoleLog("Failed to create file " + to.getName());
         }
     }
 

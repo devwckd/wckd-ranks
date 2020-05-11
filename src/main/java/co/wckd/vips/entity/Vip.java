@@ -1,12 +1,12 @@
 package co.wckd.vips.entity;
 
-import co.wckd.vips.entity.section.PrettyName;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Setter
@@ -31,24 +31,25 @@ public class Vip {
 
     }
 
-    private void increaseTime(Long time) {
+    public void increaseTime(Long time) {
         this.time += time;
     }
 
-    private void reduceTime(Long time) {
+    public void reduceTime(Long time) {
         this.time -= time;
     }
 
-    private String prepareMessage(String message, Player player) {
-
-        PrettyName prettyName = type.getPrettyName();
-        String prettyNameString = prettyName.isPresent() ? prettyName.getSection() : type.getIdentifier();
-
-        return message
-                .replace("{player}", player.getName())
-                .replace("{name}", type.getIdentifier())
-                .replace("{pretty_name}", prettyNameString);
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vip vip = (Vip) o;
+        return Objects.equals(type, vip.type) &&
+                Objects.equals(time, vip.time);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, time);
+    }
 }
