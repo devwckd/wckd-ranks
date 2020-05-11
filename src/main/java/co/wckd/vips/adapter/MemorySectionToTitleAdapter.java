@@ -24,7 +24,6 @@ public class MemorySectionToTitleAdapter implements ObjectAdapter<MemorySection,
         Set<String> keys = section.getKeys(false);
         if (keys.isEmpty()) return new Title();
 
-
         final Title title = new Title();
 
         final String type = section.getString("type");

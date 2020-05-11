@@ -18,6 +18,8 @@ public class TimeUtils {
 
     public static Long millisFromString(String time) {
 
+        if (time == null) return null;
+
         int timeLenght = time.length();
         char last = time.charAt(timeLenght - 1);
 

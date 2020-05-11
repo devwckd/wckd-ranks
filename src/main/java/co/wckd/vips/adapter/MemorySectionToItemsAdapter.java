@@ -29,7 +29,7 @@ public class MemorySectionToItemsAdapter implements ObjectAdapter<MemorySection,
         for (String key : keys) {
 
             ConfigurationSection configurationSection = section.getConfigurationSection(key);
-            ItemStack stack = ADAPTER.adapt(configurationSection, ItemStack.class);
+            ItemStack stack = ADAPTER.adapt(configurationSection, MemorySection.class, ItemStack.class);
             if (stack == null) continue;
             itemStacks.add(stack);
 

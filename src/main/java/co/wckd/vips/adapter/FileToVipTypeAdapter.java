@@ -5,6 +5,7 @@ import co.wckd.boilerplate.adapter.ObjectAdapter;
 import co.wckd.vips.VipsPlugin;
 import co.wckd.vips.entity.VipType;
 import co.wckd.vips.entity.section.*;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -26,12 +27,12 @@ public class FileToVipTypeAdapter implements ObjectAdapter<File, VipType> {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         String identifier = fileName.toLowerCase().substring(0, fileName.length() - 4);
-        PrettyName prettyName = ADAPTER.adapt(configuration.getString("pretty_name"), PrettyName.class);
-        Permissions permissions = ADAPTER.adapt(configuration.getStringList("permissions").toArray(new String[0]), Permissions.class);
-        Commands commands = ADAPTER.adapt(configuration.getStringList("commands").toArray(new String[0]), Commands.class);
-        Items items = ADAPTER.adapt(configuration.getConfigurationSection("items"), Items.class);
-        Title title = ADAPTER.adapt(configuration.getConfigurationSection("title"), Title.class);
-        
+        PrettyName prettyName = ADAPTER.adapt(configuration.getString("pretty_name"), String.class, PrettyName.class);
+        Permissions permissions = ADAPTER.adapt(configuration.getStringList("permissions").toArray(new String[0]), String[].class, Permissions.class);
+        Commands commands = ADAPTER.adapt(configuration.getStringList("commands").toArray(new String[0]), String[].class, Commands.class);
+        Items items = ADAPTER.adapt(configuration.getConfigurationSection("items"), MemorySection.class, Items.class);
+        Title title = ADAPTER.adapt(configuration.getConfigurationSection("title"), MemorySection.class, Title.class);
+
         return VipType
                 .builder()
                 .identifier(identifier)

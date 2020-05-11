@@ -24,7 +24,7 @@ public class ResultSetToVipPlayerAdapter implements ObjectAdapter<ResultSet, Vip
 
             String uuid = null;
             while (resultSet.next()) {
-                Vip vip = ADAPTER.adapt(resultSet, Vip.class);
+                Vip vip = ADAPTER.adapt(resultSet, ResultSet.class, Vip.class);
                 if (vip == null) continue;
                 vips.put(vip.getType().getIdentifier(), vip);
                 uuid = resultSet.getString("uuid");

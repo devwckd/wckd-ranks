@@ -14,7 +14,7 @@ import java.util.UUID;
 public class VipPlayerMySQLRepository extends VipPlayerRepository {
 
     private static final String FIND_STATEMENT = "SELECT * FROM vips WHERE uuid = ?;";
-    private static final String INSERT_STATEMENT = "INSERT INTO vips VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE time = ?;";
+    private static final String INSERT_STATEMENT = "REPLACE INTO vips VALUES (?, ?, ?);";
     private static final String DELETE_STATEMENT = "DELETE FROM vips WHERE uuid = ?;";
 
     private final VipsPlugin plugin;
@@ -33,9 +33,10 @@ public class VipPlayerMySQLRepository extends VipPlayerRepository {
 
             statement.setString(1, uuid.toString());
             ResultSet resultSet = statement.executeQuery();
-            return adapter.adapt(resultSet, VipPlayer.class);
+            return adapter.adapt(resultSet, ResultSet.class, VipPlayer.class);
 
         } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -49,13 +50,13 @@ public class VipPlayerMySQLRepository extends VipPlayerRepository {
                 statement.setString(1, uuid.toString());
                 statement.setString(2, vip.getType().getIdentifier());
                 statement.setLong(3, vip.getTime());
-                statement.setLong(4, vip.getTime());
                 statement.addBatch();
             }
 
             statement.executeBatch();
             connection.setAutoCommit(true);
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -68,6 +69,7 @@ public class VipPlayerMySQLRepository extends VipPlayerRepository {
             statement.executeUpdate();
 
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }

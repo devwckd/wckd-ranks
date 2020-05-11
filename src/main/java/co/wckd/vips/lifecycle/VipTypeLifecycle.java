@@ -40,7 +40,7 @@ public class VipTypeLifecycle extends Lifecycle {
         File[] files = vipTypeFolder.listFiles();
 
         for (File file : files) {
-            VipType type = adapter.adapt(file, VipType.class);
+            VipType type = adapter.adapt(file, File.class, VipType.class);
             if (type != null) vipTypeCache.insert(type.getIdentifier(), type);
         }
 

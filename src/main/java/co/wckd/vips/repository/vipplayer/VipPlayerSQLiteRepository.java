@@ -30,10 +30,10 @@ public class VipPlayerSQLiteRepository extends VipPlayerRepository {
     @Override
     public VipPlayer find(UUID uuid) {
         try (PreparedStatement statement = databaseConnection.getConnection(true).prepareStatement(FIND_STATEMENT)) {
-
             statement.setString(1, uuid.toString());
             ResultSet resultSet = statement.executeQuery();
-            return adapter.adapt(resultSet, VipPlayer.class);
+            System.out.println(resultSet.getClass().getSuperclass());
+            return adapter.adapt(resultSet, ResultSet.class, VipPlayer.class);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -50,11 +50,10 @@ public class VipPlayerSQLiteRepository extends VipPlayerRepository {
                 statement.setString(1, uuid.toString());
                 statement.setString(2, vip.getType().getIdentifier());
                 statement.setLong(3, vip.getTime());
-                statement.setLong(4, vip.getTime());
                 statement.addBatch();
             }
 
-            statement.executeBatch();
+            statement.executeUpdate();
             connection.setAutoCommit(true);
         } catch (Exception exception) {
             exception.printStackTrace();

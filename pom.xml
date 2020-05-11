@@ -53,15 +53,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <groupId>spigot</groupId>
+            <artifactId>installed</artifactId>
+            <version>1.8</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.Bozo-Inc</groupId>
             <artifactId>wckd-boilerplate</artifactId>
-            <version>180c84d15f</version>
+            <version>a643656a52</version>
         </dependency>
         <dependency>
             <groupId>com.github.SaiintBrisson</groupId>
