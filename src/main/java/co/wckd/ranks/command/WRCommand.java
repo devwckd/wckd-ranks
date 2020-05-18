@@ -5,7 +5,6 @@ import me.saiintbrisson.commands.annotations.Command;
 
 public class WRCommand {
 
-
     @Command(
             name = "wickedranks",
             aliases = {"wckdranks", "wr"},

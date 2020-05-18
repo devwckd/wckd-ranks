@@ -4,6 +4,18 @@ give_rank:
   - "{prefix} &e{sender} &fgave you &e{type} rank &ffor &e{time}&f."
   - "&fUse &e/ranktime &fto check your ranks and their times."
 
+give_lifetime_rank:
+  - "{prefix} &e{sender} &fgave you a lifetime &e{type} rank&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
+
+remove_rank:
+  - "{prefix} &e{sender} &fremoved {time} from your &e{type} rank&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
+
+remove_lifetime_rank:
+  - "{prefix} &e{sender} &fremoved your &e{type} rank&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
+
 hour: "hour"
 hours: "hours"
 day: "day"

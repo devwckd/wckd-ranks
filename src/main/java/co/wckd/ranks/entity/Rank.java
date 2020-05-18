@@ -27,8 +27,6 @@ public class Rank {
         type.getItems().apply(player, type);
         type.getTitle().apply(player, type);
 
-        rankPlayer.addVip(type.getIdentifier(), this);
-
     }
 
     public void increaseTime(Long time) {

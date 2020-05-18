@@ -66,7 +66,7 @@ public class WRRankCommand {
 
         Long time = TimeUtils.millisFromString(timeString);
         if (time == null) {
-            execution.sendMessage("Wrong time");
+            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cIncorrect time string.");
             return;
         }
 
@@ -76,16 +76,72 @@ public class WRRankCommand {
                 .time(time)
                 .build();
 
-        rank.activate(rankPlayer);
+        rankPlayer.addRank(rank);
 
+        String messageToSend = time == -1 ? "give_lifetime_rank" : "give_rank";
         String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
         String rankName = type.getPrettyName().isPresent() ? type.getPrettyName().getSection() : type.getIdentifier();
-        lang.send(player, "give_rank",
+
+        lang.send(player, messageToSend,
                 Pair.of("{sender}", senderName),
                 Pair.of("{type}", rankName),
                 Pair.of("{time}", lang.formatTime(time)));
 
+
         rankPlayerRepository.insert(uniqueId, rankPlayer);
+
+    }
+
+    @Command(
+            name = "wickedranks.rank.remove"
+    )
+    public void onWRRankRemove(
+            Execution execution,
+            Player player,
+            RankType type,
+            @Argument(nullable = true) String timeString
+    ) {
+
+        UUID uniqueId = player.getUniqueId();
+
+        RankPlayer rankPlayer = rankPlayerCache.find(uniqueId);
+        if (rankPlayer == null) {
+            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
+            return;
+        }
+
+        if (!rankPlayer.hasRank(type)) {
+            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
+            return;
+        }
+
+        Long time = TimeUtils.millisFromString(timeString);
+        if (time == null) {
+            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cIncorrect time string.");
+            return;
+        }
+
+        Rank rank = Rank
+                .builder()
+                .type(type)
+                .time(time)
+                .build();
+
+        boolean isLifetime = rankPlayer.removeRank(rank);
+        String messageToSend = isLifetime ? "remove_lifetime_rank" : "remove_rank";
+        String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
+        String rankName = type.getPrettyName().isPresent() ? type.getPrettyName().getSection() : type.getIdentifier();
+
+        lang.send(player, messageToSend,
+                Pair.of("{sender}", senderName),
+                Pair.of("{type}", rankName),
+                Pair.of("{time}", lang.formatTime(time)));
+
+        if (isLifetime) {
+            rankPlayerRepository.deleteSingle(uniqueId, rank);
+        } else {
+            rankPlayerRepository.insert(uniqueId, rankPlayer);
+        }
 
     }
 

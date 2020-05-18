@@ -1,7 +1,19 @@
 prefix: " &6&lWICKEDRANKS &8➟"
 
 give_rank:
-  - "{prefix} &e{sender} &fte deu o vip &e{type} &fpor &e{time}&f."
+  - "{prefix} &e{sender} &fte deu o &evip {type} &fpor &e{time}&f."
+  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
+
+give_lifetime_rank:
+  - "{prefix} &e{sender} &fte deu o &evip {type} eterno&f."
+  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
+
+remove_rank:
+  - "{prefix} &e{sender} &fremoveu {time} do seu &evip {type}&f."
+  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
+
+remove_lifetime_rank:
+  - "{prefix} &e{sender} &fremoveu seu &evip {type}&f."
   - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
 
 hour: "hora"

@@ -39,7 +39,7 @@ public class ResultSetToRankPlayerAdapter implements ObjectAdapter<ResultSet, Ra
             if (vips.isEmpty() || uuid == null) return null;
 
             RankPlayer rankPlayer = new RankPlayer(UUID.fromString(uuid));
-            rankPlayer.addVips(vips);
+            rankPlayer.addRanks(vips);
             rankPlayer.setActive(active);
             return rankPlayer;
 
