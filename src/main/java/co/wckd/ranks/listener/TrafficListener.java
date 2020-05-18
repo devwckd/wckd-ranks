@@ -35,7 +35,7 @@ public class TrafficListener implements Listener {
             UUID uniqueId = player.getUniqueId();
 
             RankPlayer rankPlayer = rankPlayerRepository.find(uniqueId);
-            if (rankPlayer == null) rankPlayer = new RankPlayer(uniqueId);
+            if (rankPlayer == null) return;
 
             rankPlayerCache.insert(uniqueId, rankPlayer);
 

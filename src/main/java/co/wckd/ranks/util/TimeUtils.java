@@ -18,7 +18,7 @@ public class TimeUtils {
 
     public static Long millisFromString(String time) {
 
-        if (time == null) return null;
+        if (time == null) return -1L;
 
         int timeLenght = time.length();
         char last = time.charAt(timeLenght - 1);
@@ -46,7 +46,7 @@ public class TimeUtils {
 
     }
 
-    public static String format(long time) {
+    /*public static String format(long time) {
 
         long second = (time / 1000) % 60;
         long minute = (time / (1000 * 60)) % 60;
@@ -78,6 +78,6 @@ public class TimeUtils {
 
         return builder.toString().trim();
 
-    }
+    }*/
 
 }

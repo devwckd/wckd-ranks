@@ -1,0 +1,17 @@
+prefix: " &6&lWICKEDRANKS &8➟"
+
+give_rank:
+  - "{prefix} &e{sender} &fgave you &e{type} rank &ffor &e{time}&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
+
+hour: "hour"
+hours: "hours"
+day: "day"
+days: "days"
+week: "week"
+weeks: "weeks"
+month: "month"
+months: "months"
+year: "year"
+years: "years"
+lifetime: "lifetime"

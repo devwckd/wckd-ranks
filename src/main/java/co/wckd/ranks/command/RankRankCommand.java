@@ -5,20 +5,24 @@ import co.wckd.ranks.cache.RankPlayerCache;
 import co.wckd.ranks.entity.Rank;
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.util.Lang;
 import co.wckd.ranks.util.TimeUtils;
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;
 import me.saiintbrisson.commands.argument.Argument;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
 
 public class RankRankCommand {
 
     private final RanksPlugin plugin;
     private final RankPlayerCache rankPlayerCache;
+    private final Lang lang;
 
     public RankRankCommand(RanksPlugin plugin) {
         this.plugin = plugin;
         this.rankPlayerCache = plugin.getRankPlayerLifecycle().getRankPlayerCache();
+        this.lang = plugin.getFileLifecycle().getLang();
     }
 
     @Command(
@@ -65,6 +69,12 @@ public class RankRankCommand {
                 .build();
 
         rank.activate(rankPlayer);
+
+        String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
+        String rankName = type.getPrettyName().isPresent() ? type.getPrettyName().getSection() : type.getIdentifier();
+        lang.send(player, "give_rank",
+                Pair.of("{sender}", senderName),
+                Pair.of("{type}", rankName));
 
     }
 

@@ -15,7 +15,7 @@ public class RankCommand {
 
         execution.sendMessage(new String[]{
                 " ",
-                " §6§lWICKERANKS §8- §fGeneral Help.",
+                " §6§lWICKEDRANKS §8- §fGeneral Help.",
                 " ",
                 " §8➟ §e/wr rank <options> §8- §fVIP ranks section.",
                 " §8➟ §e/wr key <options> §8- §fVIP keys section.",

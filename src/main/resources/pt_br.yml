@@ -1,0 +1,5 @@
+prefix: " &6&lWICKEDRANKS &8➟"
+
+give_rank:
+  - "{prefix} &e{sender} &fte deu o vip &e{type} &fpor &e{time}&f."
+  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
