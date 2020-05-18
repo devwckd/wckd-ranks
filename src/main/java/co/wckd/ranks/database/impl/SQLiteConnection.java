@@ -57,11 +57,11 @@ public class SQLiteConnection implements DatabaseConnection {
                     "uuid VARCHAR(36) NOT NULL, " +
                     "vip_type VARCHAR(50) NOT NULL, " +
                     "time BIGINT(19) NOT NULL, " +
-                    "is_active BOOLEAN NOT NULL " +
+                    "is_active BOOLEAN NOT NULL, " +
                     "primary key (uuid, vip_type) " +
                     ")");
         } catch (Exception exception) {
-            // TODO: log
+            exception.printStackTrace();
         }
     }
 

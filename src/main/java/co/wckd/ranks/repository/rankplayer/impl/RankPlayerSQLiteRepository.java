@@ -48,7 +48,7 @@ public class RankPlayerSQLiteRepository implements RankPlayerRepository {
         try (Connection connection = databaseConnection.getConnection(false);
              PreparedStatement statement = connection.prepareStatement(INSERT_STATEMENT)) {
 
-            for (Rank rank : rankPlayer.getVips().values()) {
+            for (Rank rank : rankPlayer.getRanks().values()) {
                 statement.setString(1, uuid.toString());
                 statement.setString(2, rank.getType().getIdentifier());
                 statement.setLong(3, rank.getTime());
@@ -56,7 +56,7 @@ public class RankPlayerSQLiteRepository implements RankPlayerRepository {
                 statement.addBatch();
             }
 
-            statement.executeUpdate();
+            statement.executeBatch();
             connection.setAutoCommit(true);
         } catch (Exception exception) {
             exception.printStackTrace();

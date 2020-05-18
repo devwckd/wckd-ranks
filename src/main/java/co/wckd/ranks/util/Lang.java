@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Lang {
 
@@ -16,7 +17,7 @@ public class Lang {
 
     public Lang(FileConfiguration lang) {
         this.lang = lang;
-        this.prefix = lang.getString("prefix", "");
+        this.prefix = ChatColor.translateAlternateColorCodes('&', lang.getString("prefix", ""));
         this.times = new ArrayList<>();
         loadTimes();
     }
@@ -46,31 +47,33 @@ public class Lang {
 
         if (millis == -1) return times.get(10);
 
-        long hour = (millis / (1000 * 60 * 60)) % 24;
-        long day = (millis / (1000 * 60 * 60 * 24)) % 7;
-        long week = (millis / (1000 * 60 * 60 * 24 * 7)) % 30;
-        double month = ((millis / (2.628e+9)) % 12);
-        double year = ((millis / (3.154e+10)) % 10);
+        long day = TimeUnit.MILLISECONDS.toDays(millis);
+        final long year = day / 365;
+        day %= 365;
+        final long month = day / 30;
+        day %= 30;
+        final long week = day / 7;
+        day %= 7;
+        final long hour = TimeUnit.MILLISECONDS.toHours(millis) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(millis));
 
+        StringBuilder stringBuilder = new StringBuilder(" ");
 
-        StringBuilder stringBuilder = new StringBuilder();
+        if ((int) year != 0)
+            stringBuilder.append((int) year).append(" ").append(checkPlural((int) year, times.get(8), times.get(9))).append(" ");
 
-        if (year != 0)
-            stringBuilder.append(year).append(" ").append(checkPlural(year, times.get(8), times.get(9)));
+        if ((int) month != 0)
+            stringBuilder.append((int) month).append(" ").append(checkPlural((int) month, times.get(6), times.get(7))).append(" ");
 
-        if (month != 0)
-            stringBuilder.append(month).append(" ").append(checkPlural(month, times.get(6), times.get(7)));
+        if ((int) week != 0)
+            stringBuilder.append((int) week).append(" ").append(checkPlural((int) week, times.get(4), times.get(5))).append(" ");
 
-        if (week != 0)
-            stringBuilder.append(week).append(" ").append(checkPlural(week, times.get(4), times.get(5)));
+        if ((int) day != 0)
+            stringBuilder.append((int) day).append(" ").append(checkPlural((int) day, times.get(2), times.get(3))).append(" ");
 
-        if (day != 0)
-            stringBuilder.append(day).append(" ").append(checkPlural(day, times.get(2), times.get(3)));
+        if ((int) hour != 0)
+            stringBuilder.append((int) hour).append(" ").append(checkPlural((int) hour, times.get(0), times.get(1))).append(" ");
 
-        if (hour != 0)
-            stringBuilder.append(hour).append(" ").append(checkPlural(hour, times.get(0), times.get(1)));
-
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
 
     }
 

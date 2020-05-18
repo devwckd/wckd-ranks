@@ -1,4 +1,4 @@
-prefix: " &6&lWICKEDRANKS &8➟"
+prefix: " &6&lWICKEDRANKS &8-"
 
 give_rank:
   - "{prefix} &e{sender} &fte deu o &evip {type} &fpor &e{time}&f."
