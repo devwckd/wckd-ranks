@@ -11,34 +11,34 @@ import me.saiintbrisson.commands.annotations.Command;
 import me.saiintbrisson.commands.argument.Argument;
 import org.bukkit.entity.Player;
 
-public class VipRankCommand {
+public class RankRankCommand {
 
     private final VipsPlugin plugin;
     private final VipPlayerCache vipPlayerCache;
 
-    public VipRankCommand(VipsPlugin plugin) {
+    public RankRankCommand(VipsPlugin plugin) {
         this.plugin = plugin;
         this.vipPlayerCache = plugin.getVipPlayerLifecycle().getVipPlayerCache();
     }
 
     @Command(
-            name = "wickedvips.rank"
+            name = "wickedranks.rank"
     )
     public void onWVRankCommand(Execution execution) {
 
         execution.sendMessage(new String[]{
                 " ",
-                " §6§lWICKEDVIPS §8- §fRanks Help.",
+                " §6§lWICKEDRANKS §8- §fRanks Help.",
                 " ",
-                " §8➟ §e/wv rank give <player> <group> [duration] §8- §fGives a VIP rank to the player.",
-                " §8➟ §e/wv rank remove <player> <group> [duration] §8- §fRemoves a VIP rank from the player.",
+                " §8➟ §e/wr rank give <player> <group> [duration] §8- §fGives a VIP rank to the player.",
+                " §8➟ §e/wr rank remove <player> <group> [duration] §8- §fRemoves a VIP rank from the player.",
                 " "
         });
 
     }
 
     @Command(
-            name = "wickedvips.rank.give"
+            name = "wickedranks.rank.give"
     )
     public void onWVRankGive(
             Execution execution,
@@ -49,7 +49,6 @@ public class VipRankCommand {
 
         VipPlayer vipPlayer = vipPlayerCache.find(player.getUniqueId());
         if (vipPlayer == null) {
-            System.out.println("deu merda menó");
             return;
         }
 

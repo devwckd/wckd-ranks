@@ -5,9 +5,9 @@ import co.wckd.boilerplate.adapter.AdapterImpl;
 import co.wckd.boilerplate.adapter.CSToISAdapter;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.vips.adapter.*;
-import co.wckd.vips.command.VipCommand;
-import co.wckd.vips.command.VipKeyCommand;
-import co.wckd.vips.command.VipRankCommand;
+import co.wckd.vips.command.RankCommand;
+import co.wckd.vips.command.RankKeyCommand;
+import co.wckd.vips.command.RankRankCommand;
 import co.wckd.vips.entity.Vip;
 import co.wckd.vips.entity.VipPlayer;
 import co.wckd.vips.entity.VipType;
@@ -30,6 +30,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 public class VipsPlugin extends BoilerplatePlugin {
@@ -63,6 +64,11 @@ public class VipsPlugin extends BoilerplatePlugin {
 
     @Override
     public void disable() {
+        try {
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (Exception exception) {
+            // TODO: log
+        }
     }
 
     private void registerListeners() {
@@ -74,9 +80,9 @@ public class VipsPlugin extends BoilerplatePlugin {
         CommandFrame commandFrame = new CommandFrame(this, false);
         registerTypes(commandFrame);
         commandFrame.registerCommands(
-                new VipCommand(),
-                new VipKeyCommand(),
-                new VipRankCommand(this)
+                new RankCommand(),
+                new RankKeyCommand(),
+                new RankRankCommand(this)
         );
     }
 
@@ -96,10 +102,6 @@ public class VipsPlugin extends BoilerplatePlugin {
         commandFrame.registerType(Byte.TYPE, Byte::parseByte);
         commandFrame.registerType(VipType.class, (argument) -> vipTypeLifecycle.getVipTypeCache().find(argument.toLowerCase()));
         commandFrame.registerType(Player.class, Bukkit::getPlayer);
-    }
-
-    public void log(String string) {
-        Bukkit.getConsoleSender().sendMessage("[" + getDescription().getName() + "] " + string);
     }
 
     public static VipsPlugin getInstance() {
