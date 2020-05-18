@@ -1,4 +1,4 @@
-name: WickedVips
+name: WickedRanks
 author: WickedDev
 version: 1.0
-main: co.wckd.vips.VipsPlugin
+main: co.wckd.ranks.RanksPlugin
