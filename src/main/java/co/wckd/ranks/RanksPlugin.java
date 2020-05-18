@@ -5,10 +5,11 @@ import co.wckd.boilerplate.adapter.AdapterImpl;
 import co.wckd.boilerplate.adapter.CSToISAdapter;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.ranks.adapter.*;
+import co.wckd.ranks.command.ChangeRankCommand;
 import co.wckd.ranks.command.RankTimeCommand;
-import co.wckd.ranks.command.WRCommand;
-import co.wckd.ranks.command.WRKeyCommand;
-import co.wckd.ranks.command.WRRankCommand;
+import co.wckd.ranks.command.administrative.WRCommand;
+import co.wckd.ranks.command.administrative.WRKeyCommand;
+import co.wckd.ranks.command.administrative.WRRankCommand;
 import co.wckd.ranks.entity.Rank;
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
@@ -84,7 +85,9 @@ public class RanksPlugin extends BoilerplatePlugin {
                 new WRCommand(),
                 new WRKeyCommand(),
                 new WRRankCommand(this),
-                new RankTimeCommand(this)
+                new RankTimeCommand(this),
+                new RankTimeCommand(this),
+                new ChangeRankCommand(this)
         );
     }
 

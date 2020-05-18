@@ -1,4 +1,4 @@
-package co.wckd.ranks.command;
+package co.wckd.ranks.command.administrative;
 
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;

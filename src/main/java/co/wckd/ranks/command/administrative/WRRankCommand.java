@@ -1,4 +1,4 @@
-package co.wckd.ranks.command;
+package co.wckd.ranks.command.administrative;
 
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.cache.RankPlayerCache;
