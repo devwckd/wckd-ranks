@@ -26,7 +26,7 @@ public class RankPlayer {
     }
 
     public boolean hasRank(String identifier) {
-        return ranks.containsKey(identifier);
+        return ranks.containsKey(identifier.toLowerCase());
     }
 
     public void addRank(Rank rank) {
@@ -71,4 +71,8 @@ public class RankPlayer {
         ranks.putAll(rankMap);
     }
 
+    public void setActive(String identifier) {
+        if (!ranks.containsKey(identifier)) return;
+        active = ranks.get(identifier);
+    }
 }

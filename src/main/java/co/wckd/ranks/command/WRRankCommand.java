@@ -80,11 +80,12 @@ public class WRRankCommand {
 
         String messageToSend = time == -1 ? "give_lifetime_rank" : "give_rank";
         String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
-        String rankName = type.getPrettyName().isPresent() ? type.getPrettyName().getSection() : type.getIdentifier();
 
         lang.send(player, messageToSend,
-                Pair.of("{sender}", senderName),
-                Pair.of("{type}", rankName),
+                Pair.of("{player}", senderName),
+                Pair.of("{sender}", player.getName()),
+                Pair.of("{pretty_name}", type.getPrettyName()),
+                Pair.of("{identifier}", type.getIdentifier()),
                 Pair.of("{time}", lang.formatTime(time)));
 
 
@@ -130,11 +131,12 @@ public class WRRankCommand {
         boolean isLifetime = rankPlayer.removeRank(rank);
         String messageToSend = isLifetime ? "remove_lifetime_rank" : "remove_rank";
         String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
-        String rankName = type.getPrettyName().isPresent() ? type.getPrettyName().getSection() : type.getIdentifier();
 
         lang.send(player, messageToSend,
-                Pair.of("{sender}", senderName),
-                Pair.of("{type}", rankName),
+                Pair.of("{player}", senderName),
+                Pair.of("{sender}", player.getName()),
+                Pair.of("{pretty_name}", type.getPrettyName()),
+                Pair.of("{identifier}", type.getIdentifier()),
                 Pair.of("{time}", lang.formatTime(time)));
 
         if (isLifetime) {

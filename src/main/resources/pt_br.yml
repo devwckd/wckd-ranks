@@ -1,20 +1,51 @@
 prefix: " &6&lWICKEDRANKS &8-"
 
 give_rank:
-  - "{prefix} &e{sender} &fte deu o &evip {type} &fpor &e{time}&f."
+  - "{prefix} &e{player} &fte deu o &evip {pretty_name} &fpor &e{time}&f."
   - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
 
 give_lifetime_rank:
-  - "{prefix} &e{sender} &fte deu o &evip {type} eterno&f."
-  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
+  - "{prefix} &e{player} &fte deu o &evip {pretty_name} eterno&f."
+  - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos.".
 
 remove_rank:
-  - "{prefix} &e{sender} &fremoveu {time} do seu &evip {type}&f."
+  - "{prefix} &e{player} &fremoveu {time} do seu &evip {pretty_name}&f."
   - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
 
 remove_lifetime_rank:
-  - "{prefix} &e{sender} &fremoveu seu &evip {type}&f."
+  - "{prefix} &e{player} &fremoveu seu &evip {pretty_name}&f."
   - "&fUtilize &e/tempovip &fpara checar os seus vips e seus respectivos tempos."
+
+ranktime_no_ranks:
+  - "{prefix} &cVocê não tem nenhum vip ativo."
+
+ranktime_header:
+  - " "
+  - "{prefix} &eSeus vips ativos:"
+
+ranktime_line:
+  - " &8- &6Vip {pretty_name}&f, &e{time}&f."
+
+ranktime_line_active:
+  - " &8- &6Vip {pretty_name}&f, &e{time}&f. &a(ativo)"
+
+ranktime_footer:
+  - " &fTroque o vip ativo utilizando &e/trocarvip&f."
+
+changerank_usage:
+  - "{prefix} &cUtilize: /changerank <type>."
+
+changerank_no_ranks:
+  - "{prefix} &cVocê não tem nenhum vip para trocar."
+
+changerank_no_rank:
+  - "{prefix} &cVocê não pode trocar para um vip que você não tem."
+
+changerank_already_active:
+  - "{prefix} &cEste vip ja está ativo."
+
+changerank_changed:
+  - "{prefix} &fVocê trocou o seu vip ativo de &evip {pretty_name_previous} &fpara &e{pretty_name}."
 
 hour: "hora"
 hours: "horas"

@@ -1,20 +1,51 @@
 prefix: " &6&lWICKEDRANKS &8-"
 
 give_rank:
-  - "{prefix} &e{sender} &fgave you &e{type} rank &ffor &e{time}&f."
+  - "{prefix} &e{player} &fgave you &e{pretty_name} rank &ffor &e{time}&f."
   - "&fUse &e/ranktime &fto check your ranks and their times."
 
 give_lifetime_rank:
-  - "{prefix} &e{sender} &fgave you a lifetime &e{type} rank&f."
+  - "{prefix} &e{player} &fgave you a lifetime &e{pretty_name} rank&f."
   - "&fUse &e/ranktime &fto check your ranks and their times."
 
 remove_rank:
-  - "{prefix} &e{sender} &fremoved {time} from your &e{type} rank&f."
+  - "{prefix} &e{player} &fremoved {time} from your &e{pretty_name} rank&f."
   - "&fUse &e/ranktime &fto check your ranks and their times."
 
 remove_lifetime_rank:
-  - "{prefix} &e{sender} &fremoved your &e{type} rank&f."
+  - "{prefix} &e{player} &fremoved your &e{pretty_name} rank&f."
   - "&fUse &e/ranktime &fto check your ranks and their times."
+
+ranktime_no_ranks:
+  - "{prefix} &cYou do not have any ranks."
+
+ranktime_header:
+  - " "
+  - "{prefix} &eYour ranks:"
+
+ranktime_line:
+  - " &8- &6Rank {pretty_name}&f, &e{time}&f."
+
+ranktime_line_active:
+  - " &8- &6Rank {pretty_name}&f, &e{time}&f. &a(active)"
+
+ranktime_footer:
+  - " &fChange your active rank using &e/changerank&f."
+
+changerank_usage:
+  - "{prefix} &cUsage: /changerank <type>."
+
+changerank_no_ranks:
+  - "{prefix} &cYou have no ranks to change."
+
+changerank_no_rank:
+  - "{prefix} &cYou cannot change to a rank that you don't have."
+
+changerank_already_active:
+  - "{prefix} &cThis rank is already active."
+
+changerank_changed:
+  - "{prefix} &fChanged from &e{pretty_name_previous} rank &fto &e{pretty_name}."
 
 hour: "hour"
 hours: "hours"

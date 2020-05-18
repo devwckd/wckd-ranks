@@ -30,4 +30,9 @@ public class RankType {
     public int hashCode() {
         return Objects.hash(identifier);
     }
+
+    public String getPrettyName() {
+        return prettyName.isPresent() ? prettyName.getSection() : identifier;
+    }
+
 }

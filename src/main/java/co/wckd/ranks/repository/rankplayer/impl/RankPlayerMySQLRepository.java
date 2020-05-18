@@ -17,7 +17,7 @@ public class RankPlayerMySQLRepository implements RankPlayerRepository {
     private static final String FIND_STATEMENT = "SELECT * FROM vips WHERE uuid = ?;";
     private static final String INSERT_STATEMENT = "REPLACE INTO vips VALUES (?, ?, ?, ?);";
     private static final String DELETE_STATEMENT = "DELETE FROM vips WHERE uuid = ?;";
-    private static final String DELETE_SINGLE_STATEMENT = "DELETE FROM vips WHERE uuid = ? AND type = ?;";
+    private static final String DELETE_SINGLE_STATEMENT = "DELETE FROM vips WHERE uuid = ? AND vip_type = ?;";
 
     private final RanksPlugin plugin;
     private final Adapter adapter;
