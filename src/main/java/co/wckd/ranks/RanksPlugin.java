@@ -5,9 +5,9 @@ import co.wckd.boilerplate.adapter.AdapterImpl;
 import co.wckd.boilerplate.adapter.CSToISAdapter;
 import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.ranks.adapter.*;
-import co.wckd.ranks.command.RankCommand;
-import co.wckd.ranks.command.RankKeyCommand;
-import co.wckd.ranks.command.RankRankCommand;
+import co.wckd.ranks.command.WRCommand;
+import co.wckd.ranks.command.WRKeyCommand;
+import co.wckd.ranks.command.WRRankCommand;
 import co.wckd.ranks.entity.Rank;
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
@@ -80,9 +80,9 @@ public class RanksPlugin extends BoilerplatePlugin {
         CommandFrame commandFrame = new CommandFrame(this, false);
         registerTypes(commandFrame);
         commandFrame.registerCommands(
-                new RankCommand(),
-                new RankKeyCommand(),
-                new RankRankCommand(this)
+                new WRCommand(),
+                new WRKeyCommand(),
+                new WRRankCommand(this)
         );
     }
 

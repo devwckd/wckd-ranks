@@ -3,7 +3,7 @@ package co.wckd.ranks.command;
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;
 
-public class RankCommand {
+public class WRCommand {
 
 
     @Command(

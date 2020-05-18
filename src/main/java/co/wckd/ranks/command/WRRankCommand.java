@@ -16,14 +16,14 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class RankRankCommand {
+public class WRRankCommand {
 
     private final RanksPlugin plugin;
     private final RankPlayerCache rankPlayerCache;
     private final RankPlayerRepository rankPlayerRepository;
     private final Lang lang;
 
-    public RankRankCommand(RanksPlugin plugin) {
+    public WRRankCommand(RanksPlugin plugin) {
         this.plugin = plugin;
         this.rankPlayerCache = plugin.getRankPlayerLifecycle().getRankPlayerCache();
         this.rankPlayerRepository = plugin.getRankPlayerLifecycle().getRankPlayerRepository();
