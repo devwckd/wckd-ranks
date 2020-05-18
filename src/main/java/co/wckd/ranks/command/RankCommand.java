@@ -11,7 +11,7 @@ public class RankCommand {
             aliases = {"wckdranks", "wr"},
             permission = "wickedranks.admin"
     )
-    public void onWVCommand(Execution execution) {
+    public void onWRCommand(Execution execution) {
 
         execution.sendMessage(new String[]{
                 " ",

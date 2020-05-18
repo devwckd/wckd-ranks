@@ -9,7 +9,7 @@ public class RankKeyCommand {
     @Command(
             name = "wickedranks.key"
     )
-    public void onWVCommand(Execution execution) {
+    public void onWRCommand(Execution execution) {
 
         execution.sendMessage(new String[]{
                 " ",
