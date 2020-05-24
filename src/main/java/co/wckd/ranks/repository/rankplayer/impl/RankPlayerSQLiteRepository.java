@@ -47,9 +47,10 @@ public class RankPlayerSQLiteRepository implements RankPlayerRepository {
     public void insert(UUID uuid, RankPlayer rankPlayer) {
         try (Connection connection = databaseConnection.getConnection(false);
              PreparedStatement statement = connection.prepareStatement(INSERT_STATEMENT)) {
+            String uuidString = uuid.toString();
 
             for (Rank rank : rankPlayer.getRanks().values()) {
-                statement.setString(1, uuid.toString());
+                statement.setString(1, uuidString);
                 statement.setString(2, rank.getType().getIdentifier());
                 statement.setLong(3, rank.getTime());
                 statement.setBoolean(4, (rankPlayer.getActive() != null && rankPlayer.getActive().equals(rank)));

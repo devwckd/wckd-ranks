@@ -4,7 +4,9 @@ import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.adapter.ObjectAdapter;
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.entity.RankType;
-import co.wckd.ranks.entity.section.*;
+import co.wckd.ranks.entity.section.Commands;
+import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.section.Title;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,8 +29,7 @@ public class FileToRankTypeAdapter implements ObjectAdapter<File, RankType> {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         String identifier = fileName.toLowerCase().substring(0, fileName.length() - 4);
-        PrettyName prettyName = ADAPTER.adapt(configuration.getString("pretty_name"), String.class, PrettyName.class);
-        Permissions permissions = ADAPTER.adapt(configuration.getStringList("permissions").toArray(new String[0]), String[].class, Permissions.class);
+        String prettyName = configuration.getString("pretty_name", identifier);
         Commands commands = ADAPTER.adapt(configuration.getStringList("commands").toArray(new String[0]), String[].class, Commands.class);
         Items items = ADAPTER.adapt(configuration.getConfigurationSection("items"), MemorySection.class, Items.class);
         Title title = ADAPTER.adapt(configuration.getConfigurationSection("title"), MemorySection.class, Title.class);
@@ -37,7 +38,6 @@ public class FileToRankTypeAdapter implements ObjectAdapter<File, RankType> {
                 .builder()
                 .identifier(identifier)
                 .prettyName(prettyName)
-                .permissions(permissions)
                 .commands(commands)
                 .items(items)
                 .title(title)

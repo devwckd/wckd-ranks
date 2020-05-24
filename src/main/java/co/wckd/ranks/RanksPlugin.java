@@ -13,12 +13,15 @@ import co.wckd.ranks.command.administrative.WRRankCommand;
 import co.wckd.ranks.entity.Rank;
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
-import co.wckd.ranks.entity.section.*;
+import co.wckd.ranks.entity.section.Commands;
+import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.section.Title;
 import co.wckd.ranks.lifecycle.DatabaseLifecycle;
 import co.wckd.ranks.lifecycle.FileLifecycle;
 import co.wckd.ranks.lifecycle.RankPlayerLifecycle;
 import co.wckd.ranks.lifecycle.RankTypeLifecycle;
 import co.wckd.ranks.listener.TrafficListener;
+import co.wckd.ranks.runnable.RankTimeCheckRunnable;
 import co.wckd.ranks.util.TimeUtils;
 import lombok.Getter;
 import me.saiintbrisson.commands.CommandFrame;
@@ -27,6 +30,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.sql.ResultSet;
@@ -48,8 +52,6 @@ public class RanksPlugin extends BoilerplatePlugin {
     @Override
     public void load() {
         adapter.registerAdapter(MemorySection.class, ItemStack.class, new CSToISAdapter());
-        adapter.registerAdapter(String.class, PrettyName.class, new StringToPrettyNameAdapter());
-        adapter.registerAdapter(String[].class, Permissions.class, new StringArrayToPermissionsAdapter());
         adapter.registerAdapter(String[].class, Commands.class, new StringArrayToCommandsAdapter());
         adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
         adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
@@ -62,6 +64,7 @@ public class RanksPlugin extends BoilerplatePlugin {
     public void enable() {
         registerListeners();
         registerCommands();
+        startTimers();
     }
 
     @Override
@@ -89,6 +92,15 @@ public class RanksPlugin extends BoilerplatePlugin {
                 new RankTimeCommand(this),
                 new ChangeRankCommand(this)
         );
+    }
+
+    private void startTimers() {
+        BukkitScheduler scheduler = getServer().getScheduler();
+        int delay = fileLifecycle.getConfiguration().getInt("config.vip_time_update_interval");
+        scheduler.runTaskTimerAsynchronously(
+                this,
+                new RankTimeCheckRunnable(this, (long) delay * 1000),
+                0L, delay * 20L);
     }
 
     private void registerTypes(CommandFrame commandFrame) {

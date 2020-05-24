@@ -10,3 +10,5 @@ database:
 config:
 
   lang: en_US
+
+  vip_time_update_interval: 60 # seconds

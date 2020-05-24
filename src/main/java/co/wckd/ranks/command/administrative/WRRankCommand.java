@@ -15,6 +15,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
 
 public class WRRankCommand {
 
@@ -22,12 +23,14 @@ public class WRRankCommand {
     private final RankPlayerCache rankPlayerCache;
     private final RankPlayerRepository rankPlayerRepository;
     private final Lang lang;
+    private final ExecutorService executorService;
 
     public WRRankCommand(RanksPlugin plugin) {
         this.plugin = plugin;
         this.rankPlayerCache = plugin.getRankPlayerLifecycle().getRankPlayerCache();
         this.rankPlayerRepository = plugin.getRankPlayerLifecycle().getRankPlayerRepository();
         this.lang = plugin.getFileLifecycle().getLang();
+        this.executorService = plugin.getExecutorService();
     }
 
     @Command(
@@ -89,7 +92,8 @@ public class WRRankCommand {
                 Pair.of("{time}", lang.formatTime(time)));
 
 
-        rankPlayerRepository.insert(uniqueId, rankPlayer);
+        RankPlayer finalRankPlayer = rankPlayer;
+        executorService.execute(() -> rankPlayerRepository.insert(uniqueId, finalRankPlayer));
 
     }
 
@@ -139,11 +143,13 @@ public class WRRankCommand {
                 Pair.of("{identifier}", type.getIdentifier()),
                 Pair.of("{time}", lang.formatTime(time)));
 
-        if (isLifetime) {
-            rankPlayerRepository.deleteSingle(uniqueId, rank);
-        } else {
-            rankPlayerRepository.insert(uniqueId, rankPlayer);
-        }
+        executorService.execute(() -> {
+            if (isLifetime) {
+                rankPlayerRepository.deleteSingle(uniqueId, rank);
+            } else {
+                rankPlayerRepository.insert(uniqueId, rankPlayer);
+            }
+        });
 
     }
 

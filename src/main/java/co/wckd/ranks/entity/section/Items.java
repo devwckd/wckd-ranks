@@ -7,17 +7,30 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class Items extends VipSection<List<ItemStack>> {
+public class Items extends RankSection<List<ItemStack>> {
 
     @Override
-    public void apply(Player player, RankType type) {
+    public void onActivate(Player player, RankType type) {
+        if (!isActivatePresent()) return;
+        giveItems(player, type, getOnActivateSection());
+    }
 
-        if (!isPresent()) return;
+    @Override
+    public void onChangeTo(Player player, RankType type) {
+        if (!isChangeToPresent()) return;
+        giveItems(player, type, getOnChangeToSection());
+    }
 
-        for (ItemStack stack : getSection()) {
+    @Override
+    public void onChangedFrom(Player player, RankType type) {
+        if (!isChangedFromPresent()) return;
+        giveItems(player, type, getOnChangedFromSection());
+    }
+
+    public void giveItems(Player player, RankType type, List<ItemStack> section) {
+        for (ItemStack stack : section) {
             Stacks.give(player, stack);
         }
-
     }
 
 }

@@ -1,28 +1,33 @@
 pretty_name: "&eExample VIP"
 tag: "&e[Example]"
 
-permissions:
-  - "example.permission"
+on_activate:
 
-commands:
-  - "say {player}"
+  items:
+    example:
+      material: STONE
+      amount: 20
+      data: 2
+      display_name: "&720 Stone"
+      lore:
+        - "&e&o20 stone given to {player}"
+        - "&e&ofor activating {pretty_name}."
+      enchantments:
+        - "durability:2"
 
-items:
+  title:
 
-  example:
-    material: STONE
-    amount: 20
-    data: 2
-    display_name: "&720 Stone"
-    lore:
-      - "&e&o20 stone given to {player}"
-      - "&e&ofor activating {pretty_name}."
-    enchantments:
-      - "durability:2"
+    type: "all" # all or player
 
-title:
+    title: "&e{player} activated {pretty_name}"
+    subtitle: "&eYAY!"
 
-  type: "all" # all or player
+on_change_to:
 
-  title: "&e{player} activated {pretty_name}"
-  subtitle: "&eYAY!"
+  commands:
+    - "say {player} change to"
+
+on_changed_from:
+
+  commands:
+    - "say {player} changed from"

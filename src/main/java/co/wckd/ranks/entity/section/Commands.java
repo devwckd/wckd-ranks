@@ -7,14 +7,29 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class Commands extends VipSection<List<String>> {
+public class Commands extends RankSection<List<String>> {
 
     @Override
-    public void apply(Player player, RankType type) {
+    public void onActivate(Player player, RankType type) {
+        if (!isActivatePresent()) return;
+        executeCommands(player, type, getOnActivateSection());
+    }
 
-        if (!isPresent()) return;
+    @Override
+    public void onChangeTo(Player player, RankType type) {
+        if (!isChangeToPresent()) return;
+        executeCommands(player, type, getOnChangeToSection());
+    }
 
-        for (String command : getSection()) {
+    @Override
+    public void onChangedFrom(Player player, RankType type) {
+        if (!isChangedFromPresent()) return;
+        executeCommands(player, type, getOnChangedFromSection());
+    }
+
+    public void executeCommands(Player player, RankType type, List<String> section) {
+
+        for (String command : section) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Strings.prepareVipTypeMessage(command, player, type));
         }
 

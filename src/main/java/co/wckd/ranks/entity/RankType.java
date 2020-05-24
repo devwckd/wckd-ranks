@@ -1,6 +1,8 @@
 package co.wckd.ranks.entity;
 
-import co.wckd.ranks.entity.section.*;
+import co.wckd.ranks.entity.section.Commands;
+import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.section.Title;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,9 +13,8 @@ import java.util.Objects;
 public class RankType {
 
     private final String identifier;
+    private final String prettyName;
 
-    private final PrettyName prettyName;
-    private final Permissions permissions;
     private final Commands commands;
     private final Items items;
     private final Title title;
@@ -32,7 +33,7 @@ public class RankType {
     }
 
     public String getPrettyName() {
-        return prettyName.isPresent() ? prettyName.getSection() : identifier;
+        return prettyName;
     }
 
 }

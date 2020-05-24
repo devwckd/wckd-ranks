@@ -36,11 +36,11 @@ public class ResultSetToRankPlayerAdapter implements ObjectAdapter<ResultSet, Ra
                 uuid = resultSet.getString("uuid");
             }
 
-            if (vips.isEmpty() || uuid == null) return null;
+            if (vips.isEmpty() || uuid == null || active == null) return null;
 
             RankPlayer rankPlayer = new RankPlayer(UUID.fromString(uuid));
             rankPlayer.addRanks(vips);
-            rankPlayer.setActive(active);
+            rankPlayer.setActive(active.getType().getIdentifier());
             return rankPlayer;
 
         } catch (Exception exception) {

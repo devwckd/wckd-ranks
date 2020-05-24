@@ -7,14 +7,27 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class Title extends VipSection<List<String>> {
+public class Title extends RankSection<List<String>> {
 
     @Override
-    public void apply(Player player, RankType type) {
+    public void onActivate(Player player, RankType type) {
+        if (!isActivatePresent()) return;
+        sendTitle(player, type, getOnActivateSection());
+    }
 
-        if (!isPresent()) return;
+    @Override
+    public void onChangeTo(Player player, RankType type) {
+        if (!isChangeToPresent()) return;
+        sendTitle(player, type, getOnChangeToSection());
+    }
 
-        List<String> section = getSection();
+    @Override
+    public void onChangedFrom(Player player, RankType type) {
+        if (!isChangedFromPresent()) return;
+        sendTitle(player, type, getOnChangedFromSection());
+    }
+
+    private void sendTitle(Player player, RankType type, List<String> section) {
         String range = section.get(0);
         if (range.equalsIgnoreCase("all")) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
@@ -25,7 +38,6 @@ public class Title extends VipSection<List<String>> {
             player.sendTitle(Strings.prepareVipTypeMessage(section.get(1), player, type),
                     Strings.prepareVipTypeMessage(section.get(2), player, type));
         }
-
     }
 
 }
