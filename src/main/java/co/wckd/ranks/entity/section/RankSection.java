@@ -15,16 +15,19 @@ public abstract class RankSection<T> {
     private boolean isChangedFromPresent = false;
 
     public void setOnActivateSection(T onActivateSection) {
+        if (onActivateSection == null) return;
         this.onActivateSection = onActivateSection;
         this.isActivatePresent = true;
     }
 
     public void setOnChangeToSection(T onChangeToSection) {
+        if (onActivateSection == null) return;
         this.onChangeToSection = onChangeToSection;
         this.isChangeToPresent = true;
     }
 
     public void setOnChangedFromSection(T onChangedFromSection) {
+        if (onActivateSection == null) return;
         this.onChangedFromSection = onChangedFromSection;
         this.isChangedFromPresent = true;
     }

@@ -2,17 +2,20 @@ package co.wckd.ranks.event;
 
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
+import lombok.Getter;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Getter
 public class PlayerLoseRankTimeEvent extends RankEvent {
 
     private final Source source;
     private final long timeRemaining;
-    private final Player executor;
+    private final CommandSender executor;
     private final long timeLost;
     private final boolean expired;
 
-    public PlayerLoseRankTimeEvent(Player player, RankPlayer rankPlayer, RankType type, Source source, long timeRemaining, Player executor, long timeLost, boolean expired) {
+    public PlayerLoseRankTimeEvent(Player player, RankPlayer rankPlayer, RankType type, Source source, long timeRemaining, CommandSender executor, long timeLost, boolean expired) {
         super(player, rankPlayer, type);
         this.source = source;
         this.timeRemaining = timeRemaining;
@@ -21,7 +24,7 @@ public class PlayerLoseRankTimeEvent extends RankEvent {
         this.expired = expired;
     }
 
-    public Player getExecutor() {
+    public CommandSender getExecutor() {
         if (source == Source.TIME) throw new IllegalStateException("Tried to get the executor of a rank that expired.");
         return executor;
     }

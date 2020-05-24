@@ -16,9 +16,7 @@ on_activate:
         - "durability:2"
 
   title:
-
     type: "all" # all or player
-
     title: "&e{player} activated {pretty_name}"
     subtitle: "&eYAY!"
 

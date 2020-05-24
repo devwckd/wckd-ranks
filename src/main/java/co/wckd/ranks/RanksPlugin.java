@@ -15,6 +15,7 @@ import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
 import co.wckd.ranks.entity.section.Commands;
 import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.section.Messages;
 import co.wckd.ranks.entity.section.Title;
 import co.wckd.ranks.lifecycle.DatabaseLifecycle;
 import co.wckd.ranks.lifecycle.FileLifecycle;
@@ -52,9 +53,10 @@ public class RanksPlugin extends BoilerplatePlugin {
     @Override
     public void load() {
         adapter.registerAdapter(MemorySection.class, ItemStack.class, new CSToISAdapter());
-        adapter.registerAdapter(String[].class, Commands.class, new StringArrayToCommandsAdapter());
-        adapter.registerAdapter(MemorySection.class, Items.class, new MemorySectionToItemsAdapter());
-        adapter.registerAdapter(MemorySection.class, Title.class, new MemorySectionToTitleAdapter());
+        adapter.registerAdapter(MemorySection.class, Commands.class, new MSToCommandsAdapter());
+        adapter.registerAdapter(MemorySection.class, Messages.class, new MSToMessagesAdapter());
+        adapter.registerAdapter(MemorySection.class, Items.class, new MSToItemsAdapter());
+        adapter.registerAdapter(MemorySection.class, Title.class, new MSToTitleAdapter());
         adapter.registerAdapter(File.class, RankType.class, new FileToRankTypeAdapter());
         adapter.registerAdapter(ResultSet.class, Rank.class, new ResultSetToRankAdapter());
         adapter.registerAdapter(ResultSet.class, RankPlayer.class, new ResultSetToRankPlayerAdapter());

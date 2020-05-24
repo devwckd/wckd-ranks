@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class MemorySectionToItemsAdapter implements ObjectAdapter<MemorySection, Items> {
+public class MSToItemsAdapter implements ObjectAdapter<MemorySection, Items> {
 
     private static final RanksPlugin PLUGIN = RanksPlugin.getInstance();
     private static final Adapter ADAPTER = PLUGIN.getAdapter();
@@ -20,27 +20,29 @@ public class MemorySectionToItemsAdapter implements ObjectAdapter<MemorySection,
     @Override
     public Items adapt(MemorySection section) {
 
-        if (section == null) return new Items();
+        Items items = new Items();
+
+        items.setOnActivateSection(getItems(section.getConfigurationSection("on_activate.items")));
+        items.setOnActivateSection(getItems(section.getConfigurationSection("on_activate.items")));
+        items.setOnActivateSection(getItems(section.getConfigurationSection("on_activate.items")));
+
+        return items;
+    }
+
+    private List<ItemStack> getItems(ConfigurationSection section) {
+        if (section == null) return null;
 
         Set<String> keys = section.getKeys(false);
-        if (keys.isEmpty()) return new Items();
+        if (keys == null) return null;
 
         List<ItemStack> itemStacks = new ArrayList<>();
         for (String key : keys) {
-
             ConfigurationSection configurationSection = section.getConfigurationSection(key);
             ItemStack stack = ADAPTER.adapt(configurationSection, MemorySection.class, ItemStack.class);
             if (stack == null) continue;
             itemStacks.add(stack);
-
         }
-
-        Items items = new Items();
-
-        if (!itemStacks.isEmpty())
-            items.setSection(itemStacks);
-
-        return items;
+        return itemStacks;
     }
 
 }

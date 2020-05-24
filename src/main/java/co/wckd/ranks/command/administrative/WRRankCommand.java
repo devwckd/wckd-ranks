@@ -5,14 +5,18 @@ import co.wckd.ranks.cache.RankPlayerCache;
 import co.wckd.ranks.entity.Rank;
 import co.wckd.ranks.entity.RankPlayer;
 import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.event.PlayerActivateRankEvent;
+import co.wckd.ranks.event.PlayerGainRankTimeEvent;
+import co.wckd.ranks.event.PlayerLoseRankTimeEvent;
+import co.wckd.ranks.event.PlayerRankExpireEvent;
 import co.wckd.ranks.repository.rankplayer.RankPlayerRepository;
 import co.wckd.ranks.util.Lang;
 import co.wckd.ranks.util.TimeUtils;
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;
 import me.saiintbrisson.commands.argument.Argument;
-import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -24,6 +28,7 @@ public class WRRankCommand {
     private final RankPlayerRepository rankPlayerRepository;
     private final Lang lang;
     private final ExecutorService executorService;
+    private final PluginManager pluginManager;
 
     public WRRankCommand(RanksPlugin plugin) {
         this.plugin = plugin;
@@ -31,6 +36,7 @@ public class WRRankCommand {
         this.rankPlayerRepository = plugin.getRankPlayerLifecycle().getRankPlayerRepository();
         this.lang = plugin.getFileLifecycle().getLang();
         this.executorService = plugin.getExecutorService();
+        this.pluginManager = plugin.getServer().getPluginManager();
     }
 
     @Command(
@@ -79,18 +85,16 @@ public class WRRankCommand {
                 .time(time)
                 .build();
 
+        PlayerGainRankTimeEvent event;
+        if (rankPlayer.hasRank(type)) {
+            event = new PlayerGainRankTimeEvent(player, rankPlayer, type, PlayerGainRankTimeEvent.Source.COMMAND, time, execution.getSender(), null, true);
+        } else {
+            event = new PlayerActivateRankEvent(player, rankPlayer, type, PlayerGainRankTimeEvent.Source.COMMAND, time, execution.getSender(), null);
+        }
+        pluginManager.callEvent(event);
+        if (event.isCancelled()) return;
+
         rankPlayer.addRank(rank);
-
-        String messageToSend = time == -1 ? "give_lifetime_rank" : "give_rank";
-        String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
-
-        lang.send(player, messageToSend,
-                Pair.of("{player}", senderName),
-                Pair.of("{sender}", player.getName()),
-                Pair.of("{pretty_name}", type.getPrettyName()),
-                Pair.of("{identifier}", type.getIdentifier()),
-                Pair.of("{time}", lang.formatTime(time)));
-
 
         RankPlayer finalRankPlayer = rankPlayer;
         executorService.execute(() -> rankPlayerRepository.insert(uniqueId, finalRankPlayer));
@@ -132,21 +136,21 @@ public class WRRankCommand {
                 .time(time)
                 .build();
 
+        boolean isExpired = time == -1 || (rankPlayer.hasRank(type) && rankPlayer.getRank(type).getTime() - time < 1);
+
+        PlayerLoseRankTimeEvent event;
+        if (rankPlayer.hasRank(type)) {
+            event = new PlayerLoseRankTimeEvent(player, rankPlayer, type, PlayerLoseRankTimeEvent.Source.COMMAND, rank.getTime() - time, execution.getSender(), time, isExpired);
+        } else {
+            event = new PlayerRankExpireEvent(player, rankPlayer, type, PlayerLoseRankTimeEvent.Source.COMMAND, 0, execution.getSender(), rank.getTime());
+        }
+        pluginManager.callEvent(event);
+        if (event.isCancelled()) return;
+
         rankPlayer.removeRank(rank);
 
-        boolean isLifetime = time == -1 || (rankPlayer.hasRank(type) && rankPlayer.getRanks().get(type.getIdentifier()).getTime() - time < 1);
-        String messageToSend = isLifetime ? "remove_lifetime_rank" : "remove_rank";
-        String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
-
-        lang.send(player, messageToSend,
-                Pair.of("{player}", senderName),
-                Pair.of("{sender}", player.getName()),
-                Pair.of("{pretty_name}", type.getPrettyName()),
-                Pair.of("{identifier}", type.getIdentifier()),
-                Pair.of("{time}", lang.formatTime(time)));
-
         executorService.execute(() -> {
-            if (isLifetime) {
+            if (isExpired) {
                 rankPlayerRepository.deleteSingle(uniqueId, rank);
             } else {
                 rankPlayerRepository.insert(uniqueId, rankPlayer);

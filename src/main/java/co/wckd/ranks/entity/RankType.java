@@ -2,6 +2,7 @@ package co.wckd.ranks.entity;
 
 import co.wckd.ranks.entity.section.Commands;
 import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.section.Messages;
 import co.wckd.ranks.entity.section.Title;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class RankType {
     private final String identifier;
     private final String prettyName;
 
+    private final Messages messages;
     private final Commands commands;
     private final Items items;
     private final Title title;

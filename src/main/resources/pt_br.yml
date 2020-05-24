@@ -47,6 +47,9 @@ changerank_already_active:
 changerank_changed:
   - "{prefix} &fVocê trocou o seu vip ativo de &evip {pretty_name_previous} &fpara &e{pretty_name}."
 
+rank_expired:
+  - "{prefix} &fO seu &evip {pretty_name}&f expirou."
+
 hour: "hora"
 hours: "horas"
 day: "dia"

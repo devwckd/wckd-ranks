@@ -1,6 +1,7 @@
 package co.wckd.ranks.util;
 
 import co.wckd.ranks.entity.RankType;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Strings {
@@ -11,6 +12,10 @@ public class Strings {
                 .replace("{player}", player.getName())
                 .replace("{name}", type.getIdentifier())
                 .replace("{pretty_name}", type.getPrettyName());
+    }
+
+    public static String colorize(String string) {
+        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
 }

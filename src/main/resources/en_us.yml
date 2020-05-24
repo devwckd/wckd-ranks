@@ -45,7 +45,10 @@ changerank_already_active:
   - "{prefix} &cThis rank is already active."
 
 changerank_changed:
-  - "{prefix} &fChanged from &e{pretty_name_previous} rank &fto &e{pretty_name}."
+  - "{prefix} &fChanged from &e{pretty_name_previous} rank &fto &e{pretty_name} rank&f."
+
+rank_expired:
+  - "{prefix} &fYour &e{pretty_name} rank &fexpired."
 
 hour: "hour"
 hours: "hours"

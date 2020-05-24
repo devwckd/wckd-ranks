@@ -34,6 +34,14 @@ public class RankPlayer {
         return ranks.containsKey(identifier.toLowerCase());
     }
 
+    public Rank getRank(RankType type) {
+        return getRank(type.getIdentifier());
+    }
+
+    public Rank getRank(String identifier) {
+        return ranks.get(identifier);
+    }
+
     public void addRank(Rank rank) {
         addRank(rank.getType().getIdentifier(), rank);
     }
@@ -100,13 +108,15 @@ public class RankPlayer {
                     PlayerLoseRankTimeEvent.Source.TIME,
                     0,
                     null,
-                    60,
-                    true);
+                    60);
 
             Bukkit.getPluginManager().callEvent(expireEvent);
 
-            if (!expireEvent.isCancelled()) return;
+            if (expireEvent.isCancelled()) return;
+
+            removeRank(active);
 
         }
     }
+
 }
