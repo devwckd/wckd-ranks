@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 @Getter
 public class PlayerGainRankTimeEvent extends RankEvent {
 
+    private final RankType type;
     private final Source source;
     private final long time;
     private final CommandSender executor;
@@ -16,7 +17,8 @@ public class PlayerGainRankTimeEvent extends RankEvent {
     private final boolean isIncrease;
 
     public PlayerGainRankTimeEvent(Player player, RankPlayer rankPlayer, RankType type, Source source, long time, CommandSender executor, String key, boolean isIncrease) {
-        super(player, rankPlayer, type);
+        super(player, rankPlayer);
+        this.type = type;
         this.source = source;
         this.time = time;
         this.executor = executor;

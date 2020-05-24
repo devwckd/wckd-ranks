@@ -2,6 +2,7 @@ package co.wckd.ranks.listener;
 
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.event.PlayerChangeRankEvent;
 import co.wckd.ranks.event.PlayerGainRankTimeEvent;
 import co.wckd.ranks.event.PlayerLoseRankTimeEvent;
 import co.wckd.ranks.util.Lang;
@@ -71,6 +72,24 @@ public class RankListener implements Listener {
                     Pair.of("{pretty_name}", type.getPrettyName()),
                     Pair.of("{identifier}", type.getIdentifier()),
                     Pair.of("{time}", lang.formatTime(event.getTimeLost())));
+
+        }
+
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onChangeRank(PlayerChangeRankEvent event) {
+
+        if (event.isCancelled()) return;
+
+        Player player = event.getPlayer();
+        if (event.getExecutor().equals(player)) {
+
+            lang.send(player, "changerank_changed",
+                    Pair.of("{previous_pretty_name}", event.getFrom().getType().getPrettyName()),
+                    Pair.of("{previous_identifier}", event.getFrom().getType().getIdentifier()),
+                    Pair.of("{pretty_name}", event.getTo().getType().getPrettyName()),
+                    Pair.of("{identifier}", event.getTo().getType().getIdentifier()));
 
         }
 
