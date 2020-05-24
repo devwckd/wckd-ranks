@@ -76,10 +76,13 @@ public class RankPlayer {
             ranks.remove(identifier);
             rank.onChangedFrom(this);
 
-            if (rank.equals(active) && ranks.size() > 0) {
-                Rank next = ranks.values().iterator().next();
-                active = next;
-                active.onChangeTo(this);
+            if (rank.equals(active)) {
+                if (ranks.size() > 0) {
+                    active = ranks.values().iterator().next();
+                    active.onChangeTo(this);
+                    return;
+                }
+                active = null;
             }
 
         }
@@ -91,12 +94,15 @@ public class RankPlayer {
 
     public void setActive(String identifier) {
         if (!ranks.containsKey(identifier)) return;
+
+        active.onChangedFrom(this);
         active = ranks.get(identifier);
+        active.onChangeTo(this);
     }
 
     public void tick(long now, long time) {
 
-        if (active.getTime() == -1) return;
+        if (active == null || active.getTime() == -1) return;
 
         active.reduceTime(Math.min(now - joined, time * 1000));
 
