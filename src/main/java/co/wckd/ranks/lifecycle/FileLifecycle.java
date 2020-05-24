@@ -17,7 +17,7 @@ import java.io.OutputStream;
 public class FileLifecycle extends Lifecycle {
 
     private final RanksPlugin plugin;
-    private File vipTypeFolder;
+    private File rankTypeFolder;
     private File langFolder;
     private FileConfiguration configuration;
     private Lang lang;
@@ -40,17 +40,17 @@ public class FileLifecycle extends Lifecycle {
         plugin.saveDefaultConfig();
         configuration = plugin.getConfig();
 
-        vipTypeFolder = new File(dataFolder, "/vips/");
-        if (!vipTypeFolder.exists()) {
-            vipTypeFolder.mkdirs();
-            copyResource("_example.yml", new File(vipTypeFolder, "_example.yml"));
+        rankTypeFolder = new File(dataFolder, "/ranks/");
+        if (!rankTypeFolder.exists()) {
+            rankTypeFolder.mkdirs();
+            copyResource("ranks/_example.yml", new File(rankTypeFolder, "_example.yml"));
         }
 
         langFolder = new File(dataFolder, "/lang/");
         if (!langFolder.exists()) {
             langFolder.mkdirs();
-            copyResource("en_us.yml", new File(langFolder, "en_us.yml"));
-            copyResource("pt_br.yml", new File(langFolder, "pt_br.yml"));
+            copyResource("lang/en_us.yml", new File(langFolder, "en_us.yml"));
+            copyResource("lang/pt_br.yml", new File(langFolder, "pt_br.yml"));
         }
         loadLang();
 
@@ -64,7 +64,7 @@ public class FileLifecycle extends Lifecycle {
 
             langFile = new File(langFolder, "en_us.yml");
             if (!langFile.exists())
-                copyResource("en_us.yml", langFile);
+                copyResource("lang/en_us.yml", langFile);
 
             Logs.consoleLog("Language file not found, returning to default (en_US).");
 

@@ -27,7 +27,7 @@ public class RankTypeLifecycle extends Lifecycle {
     @Override
     public void enable() {
 
-        vipTypeFolder = plugin.getFileLifecycle().getVipTypeFolder();
+        vipTypeFolder = plugin.getFileLifecycle().getRankTypeFolder();
 
         // TODO: info
         loadRankTypes();
