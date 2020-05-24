@@ -3,7 +3,7 @@ package co.wckd.ranks.adapter;
 import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.adapter.ObjectAdapter;
 import co.wckd.ranks.RanksPlugin;
-import co.wckd.ranks.entity.section.Items;
+import co.wckd.ranks.entity.rank.section.Items;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.inventory.ItemStack;

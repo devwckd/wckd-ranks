@@ -1,7 +1,7 @@
 package co.wckd.ranks.listener;
 
 import co.wckd.ranks.RanksPlugin;
-import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.entity.rank.RankType;
 import co.wckd.ranks.event.PlayerChangeRankEvent;
 import co.wckd.ranks.event.PlayerGainRankTimeEvent;
 import co.wckd.ranks.event.PlayerLoseRankTimeEvent;

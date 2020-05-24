@@ -1,9 +1,9 @@
-package co.wckd.ranks.entity;
+package co.wckd.ranks.entity.rank;
 
-import co.wckd.ranks.entity.section.Commands;
-import co.wckd.ranks.entity.section.Items;
-import co.wckd.ranks.entity.section.Messages;
-import co.wckd.ranks.entity.section.Title;
+import co.wckd.ranks.entity.rank.section.Commands;
+import co.wckd.ranks.entity.rank.section.Items;
+import co.wckd.ranks.entity.rank.section.Messages;
+import co.wckd.ranks.entity.rank.section.Title;
 import lombok.Builder;
 import lombok.Getter;
 

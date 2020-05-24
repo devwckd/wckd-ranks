@@ -1,8 +1,8 @@
 package co.wckd.ranks.repository.rankplayer;
 
 import co.wckd.boilerplate.object.DAO;
-import co.wckd.ranks.entity.Rank;
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.Rank;
+import co.wckd.ranks.entity.rank.RankPlayer;
 
 import java.util.UUID;
 

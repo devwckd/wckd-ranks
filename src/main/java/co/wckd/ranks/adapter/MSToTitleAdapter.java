@@ -4,7 +4,7 @@ import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.adapter.ObjectAdapter;
 import co.wckd.boilerplate.util.Strings;
 import co.wckd.ranks.RanksPlugin;
-import co.wckd.ranks.entity.section.Title;
+import co.wckd.ranks.entity.rank.section.Title;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 

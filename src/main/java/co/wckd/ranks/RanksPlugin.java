@@ -10,17 +10,15 @@ import co.wckd.ranks.command.RankTimeCommand;
 import co.wckd.ranks.command.administrative.WRCommand;
 import co.wckd.ranks.command.administrative.WRKeyCommand;
 import co.wckd.ranks.command.administrative.WRRankCommand;
-import co.wckd.ranks.entity.Rank;
-import co.wckd.ranks.entity.RankPlayer;
-import co.wckd.ranks.entity.RankType;
-import co.wckd.ranks.entity.section.Commands;
-import co.wckd.ranks.entity.section.Items;
-import co.wckd.ranks.entity.section.Messages;
-import co.wckd.ranks.entity.section.Title;
-import co.wckd.ranks.lifecycle.DatabaseLifecycle;
-import co.wckd.ranks.lifecycle.FileLifecycle;
-import co.wckd.ranks.lifecycle.RankPlayerLifecycle;
-import co.wckd.ranks.lifecycle.RankTypeLifecycle;
+import co.wckd.ranks.entity.key.Key;
+import co.wckd.ranks.entity.rank.Rank;
+import co.wckd.ranks.entity.rank.RankPlayer;
+import co.wckd.ranks.entity.rank.RankType;
+import co.wckd.ranks.entity.rank.section.Commands;
+import co.wckd.ranks.entity.rank.section.Items;
+import co.wckd.ranks.entity.rank.section.Messages;
+import co.wckd.ranks.entity.rank.section.Title;
+import co.wckd.ranks.lifecycle.*;
 import co.wckd.ranks.listener.TrafficListener;
 import co.wckd.ranks.runnable.RankTimeCheckRunnable;
 import co.wckd.ranks.util.TimeUtils;
@@ -49,6 +47,7 @@ public class RanksPlugin extends BoilerplatePlugin {
     private final DatabaseLifecycle databaseLifecycle = lifecycle(new DatabaseLifecycle(this), 1);
     private final RankTypeLifecycle rankTypeLifecycle = lifecycle(new RankTypeLifecycle(this), 2);
     private final RankPlayerLifecycle rankPlayerLifecycle = lifecycle(new RankPlayerLifecycle(this), 3);
+    private final KeyLifecycle keyLifecycle = lifecycle(new KeyLifecycle(this), 4);
 
     @Override
     public void load() {
@@ -58,8 +57,9 @@ public class RanksPlugin extends BoilerplatePlugin {
         adapter.registerAdapter(MemorySection.class, Items.class, new MSToItemsAdapter());
         adapter.registerAdapter(MemorySection.class, Title.class, new MSToTitleAdapter());
         adapter.registerAdapter(File.class, RankType.class, new FileToRankTypeAdapter());
-        adapter.registerAdapter(ResultSet.class, Rank.class, new ResultSetToRankAdapter());
-        adapter.registerAdapter(ResultSet.class, RankPlayer.class, new ResultSetToRankPlayerAdapter());
+        adapter.registerAdapter(ResultSet.class, Rank.class, new RSToRankAdapter());
+        adapter.registerAdapter(ResultSet.class, RankPlayer.class, new RSToRankPlayerAdapter());
+        adapter.registerAdapter(ResultSet.class, Key.class, new RSToKeyAdapter());
     }
 
     @Override

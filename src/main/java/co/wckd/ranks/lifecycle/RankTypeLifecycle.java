@@ -4,7 +4,7 @@ import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.boilerplate.lifecycle.Lifecycle;
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.cache.RankTypeCache;
-import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.entity.rank.RankType;
 import lombok.Getter;
 
 import java.io.File;

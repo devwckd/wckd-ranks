@@ -3,8 +3,8 @@ package co.wckd.ranks.repository.rankplayer.impl;
 import co.wckd.boilerplate.adapter.Adapter;
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.database.DatabaseConnection;
-import co.wckd.ranks.entity.Rank;
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.Rank;
+import co.wckd.ranks.entity.rank.RankPlayer;
 import co.wckd.ranks.repository.rankplayer.RankPlayerRepository;
 
 import java.sql.Connection;

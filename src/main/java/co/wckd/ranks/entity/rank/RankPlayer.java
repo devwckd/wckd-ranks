@@ -1,4 +1,4 @@
-package co.wckd.ranks.entity;
+package co.wckd.ranks.entity.rank;
 
 import co.wckd.ranks.event.PlayerLoseRankTimeEvent;
 import co.wckd.ranks.event.PlayerRankExpireEvent;

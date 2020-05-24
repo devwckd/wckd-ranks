@@ -2,7 +2,7 @@ package co.wckd.ranks.listener;
 
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.cache.RankPlayerCache;
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.RankPlayer;
 import co.wckd.ranks.repository.rankplayer.RankPlayerRepository;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

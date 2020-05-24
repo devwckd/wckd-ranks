@@ -1,7 +1,7 @@
 package co.wckd.ranks.cache;
 
 import co.wckd.boilerplate.object.DAO;
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.RankPlayer;
 import lombok.Getter;
 
 import java.util.Map;

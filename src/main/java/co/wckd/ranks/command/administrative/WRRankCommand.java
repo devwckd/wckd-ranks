@@ -2,9 +2,9 @@ package co.wckd.ranks.command.administrative;
 
 import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.cache.RankPlayerCache;
-import co.wckd.ranks.entity.Rank;
-import co.wckd.ranks.entity.RankPlayer;
-import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.entity.rank.Rank;
+import co.wckd.ranks.entity.rank.RankPlayer;
+import co.wckd.ranks.entity.rank.RankType;
 import co.wckd.ranks.event.PlayerActivateRankEvent;
 import co.wckd.ranks.event.PlayerGainRankTimeEvent;
 import co.wckd.ranks.event.PlayerLoseRankTimeEvent;

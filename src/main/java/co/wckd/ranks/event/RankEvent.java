@@ -1,6 +1,6 @@
 package co.wckd.ranks.event;
 
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.RankPlayer;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

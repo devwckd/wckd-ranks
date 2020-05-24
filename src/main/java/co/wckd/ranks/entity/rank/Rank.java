@@ -1,4 +1,4 @@
-package co.wckd.ranks.entity;
+package co.wckd.ranks.entity.rank;
 
 import lombok.Builder;
 import lombok.Getter;

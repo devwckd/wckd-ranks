@@ -1,6 +1,6 @@
 package co.wckd.ranks.util;
 
-import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.entity.rank.RankType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

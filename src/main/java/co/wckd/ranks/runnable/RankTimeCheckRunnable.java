@@ -1,7 +1,7 @@
 package co.wckd.ranks.runnable;
 
 import co.wckd.ranks.RanksPlugin;
-import co.wckd.ranks.entity.RankPlayer;
+import co.wckd.ranks.entity.rank.RankPlayer;
 
 import java.util.Map;
 import java.util.UUID;

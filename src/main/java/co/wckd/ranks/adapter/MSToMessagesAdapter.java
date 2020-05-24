@@ -1,7 +1,7 @@
 package co.wckd.ranks.adapter;
 
 import co.wckd.boilerplate.adapter.ObjectAdapter;
-import co.wckd.ranks.entity.section.Messages;
+import co.wckd.ranks.entity.rank.section.Messages;
 import org.bukkit.configuration.MemorySection;
 
 public class MSToMessagesAdapter implements ObjectAdapter<MemorySection, Messages> {

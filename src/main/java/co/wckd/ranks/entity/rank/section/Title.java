@@ -1,6 +1,6 @@
-package co.wckd.ranks.entity.section;
+package co.wckd.ranks.entity.rank.section;
 
-import co.wckd.ranks.entity.RankType;
+import co.wckd.ranks.entity.rank.RankType;
 import co.wckd.ranks.util.Strings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

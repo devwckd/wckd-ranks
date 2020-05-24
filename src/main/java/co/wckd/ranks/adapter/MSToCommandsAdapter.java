@@ -1,7 +1,7 @@
 package co.wckd.ranks.adapter;
 
 import co.wckd.boilerplate.adapter.ObjectAdapter;
-import co.wckd.ranks.entity.section.Commands;
+import co.wckd.ranks.entity.rank.section.Commands;
 import org.bukkit.configuration.MemorySection;
 
 public class MSToCommandsAdapter implements ObjectAdapter<MemorySection, Commands> {
