@@ -132,7 +132,9 @@ public class WRRankCommand {
                 .time(time)
                 .build();
 
-        boolean isLifetime = rankPlayer.removeRank(rank);
+        rankPlayer.removeRank(rank);
+
+        boolean isLifetime = time == -1 || (rankPlayer.hasRank(type) && rankPlayer.getRanks().get(type.getIdentifier()).getTime() - time < 1);
         String messageToSend = isLifetime ? "remove_lifetime_rank" : "remove_rank";
         String senderName = execution.getSender() instanceof Player ? execution.getPlayer().getName() : "CONSOLE";
 

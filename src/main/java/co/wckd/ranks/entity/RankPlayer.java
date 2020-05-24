@@ -50,26 +50,12 @@ public class RankPlayer {
         ranks.put(identifier, rank);
     }
 
-    public boolean removeRank(Rank rank) {
-        return removeRank(rank.getType().getIdentifier(), rank);
+    public void removeRank(Rank rank) {
+        removeRank(rank.getType(), rank.getTime());
     }
 
-    public boolean removeRank(String identifier, Rank rank) {
-
-        if (rank.getTime() == -1) {
-            ranks.remove(identifier);
-            return true;
-        }
-
-        Rank playerRank = ranks.get(identifier);
-        if (playerRank.getTime() - rank.getTime() < 1) {
-            ranks.remove(identifier);
-            return true;
-        }
-
-        playerRank.setTime(playerRank.getTime() - rank.getTime());
-        return false;
-
+    public void removeRank(RankType rankType, long time) {
+        removeRank(rankType.getIdentifier(), time);
     }
 
     public void removeRank(String identifier, long time) {
@@ -79,11 +65,14 @@ public class RankPlayer {
 
         if (time == -1 || rank.getTime() - time < 1) {
 
-            if (rank.equals(active)) {
-
-            }
             ranks.remove(identifier);
+            rank.onChangedFrom(this);
 
+            if (rank.equals(active) && ranks.size() > 0) {
+                Rank next = ranks.values().iterator().next();
+                active = next;
+                active.onChangeTo(this);
+            }
 
         }
     }
