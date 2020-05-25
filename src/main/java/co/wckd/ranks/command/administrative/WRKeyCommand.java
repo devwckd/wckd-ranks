@@ -10,6 +10,8 @@ import co.wckd.ranks.util.TimeUtils;
 import me.saiintbrisson.commands.Execution;
 import me.saiintbrisson.commands.annotations.Command;
 import me.saiintbrisson.commands.argument.Argument;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.concurrent.ExecutorService;
 
@@ -81,7 +83,15 @@ public class WRKeyCommand {
             execution.sendMessage(" §6§lWICKEDRANKS §8➟ §e" + type.getPrettyName() + " rank's " +
                     lang.formatTime(time) +
                     " §fkey generated.");
-            execution.sendMessage(" §eKEY §8➟ §f" + keyString);
+
+
+            TextComponent keyComponent = new TextComponent(keyString);
+            keyComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, keyString));
+
+            TextComponent textComponent = new TextComponent(" §6§lWICKEDRANKS §8➟ §fKey: §e");
+            textComponent.addExtra(keyComponent);
+
+            execution.getPlayer().spigot().sendMessage(textComponent);
 
         });
 
