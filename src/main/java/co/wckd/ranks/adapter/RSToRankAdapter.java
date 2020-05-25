@@ -17,7 +17,9 @@ public class RSToRankAdapter implements ObjectAdapter<ResultSet, Rank> {
     public Rank adapt(ResultSet resultSet) {
         try {
 
-            RankType type = VIP_TYPE_CACHE.find(resultSet.getString("type"));
+            RankType type = VIP_TYPE_CACHE.find(resultSet.getString("vip_type"));
+            if (type == null) return null;
+
             long time = resultSet.getLong("time");
 
             return Rank
@@ -27,6 +29,7 @@ public class RSToRankAdapter implements ObjectAdapter<ResultSet, Rank> {
                     .build();
 
         } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }

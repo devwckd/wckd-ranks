@@ -58,13 +58,13 @@ public class MySQLConnection implements DatabaseConnection {
                     "uuid VARCHAR(36) NOT NULL, " +
                     "vip_type VARCHAR(50) NOT NULL, " +
                     "time BIGINT(19) NOT NULL," +
-                    "is_active BOOLEAN NOT NULL " +
+                    "is_active BOOLEAN NOT NULL, " +
                     "primary key (uuid, vip_type) " +
                     ")");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS keys (" +
                     "key CHAR(19) NOT NULL, " +
                     "vip_type VARCHAR(50) NOT NULL, " +
-                    "time BIGINT(19) NOTNULL, " +
+                    "time BIGINT(19) NOT NULL, " +
                     "primary key (key)" +
                     ")");
         } catch (Exception exception) {

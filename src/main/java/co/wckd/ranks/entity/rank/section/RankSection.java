@@ -21,13 +21,13 @@ public abstract class RankSection<T> {
     }
 
     public void setOnChangeToSection(T onChangeToSection) {
-        if (onActivateSection == null) return;
+        if (onChangeToSection == null) return;
         this.onChangeToSection = onChangeToSection;
         this.isChangeToPresent = true;
     }
 
     public void setOnChangedFromSection(T onChangedFromSection) {
-        if (onActivateSection == null) return;
+        if (onChangedFromSection == null) return;
         this.onChangedFromSection = onChangedFromSection;
         this.isChangedFromPresent = true;
     }

@@ -7,6 +7,7 @@ import co.wckd.boilerplate.plugin.BoilerplatePlugin;
 import co.wckd.ranks.adapter.*;
 import co.wckd.ranks.command.ChangeRankCommand;
 import co.wckd.ranks.command.RankTimeCommand;
+import co.wckd.ranks.command.UseKeyCommand;
 import co.wckd.ranks.command.administrative.WRCommand;
 import co.wckd.ranks.command.administrative.WRKeyCommand;
 import co.wckd.ranks.command.administrative.WRRankCommand;
@@ -19,6 +20,7 @@ import co.wckd.ranks.entity.rank.section.Items;
 import co.wckd.ranks.entity.rank.section.Messages;
 import co.wckd.ranks.entity.rank.section.Title;
 import co.wckd.ranks.lifecycle.*;
+import co.wckd.ranks.listener.RankListener;
 import co.wckd.ranks.listener.TrafficListener;
 import co.wckd.ranks.runnable.RankTimeCheckRunnable;
 import co.wckd.ranks.util.TimeUtils;
@@ -35,7 +37,6 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 public class RanksPlugin extends BoilerplatePlugin {
@@ -72,7 +73,7 @@ public class RanksPlugin extends BoilerplatePlugin {
     @Override
     public void disable() {
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.shutdown();
         } catch (Exception exception) {
             // TODO: log
         }
@@ -81,6 +82,7 @@ public class RanksPlugin extends BoilerplatePlugin {
     private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new TrafficListener(this), this);
+        pluginManager.registerEvents(new RankListener(this), this);
     }
 
     private void registerCommands() {
@@ -88,11 +90,12 @@ public class RanksPlugin extends BoilerplatePlugin {
         registerTypes(commandFrame);
         commandFrame.registerCommands(
                 new WRCommand(),
-                new WRKeyCommand(),
+                new WRKeyCommand(this),
                 new WRRankCommand(this),
                 new RankTimeCommand(this),
                 new RankTimeCommand(this),
-                new ChangeRankCommand(this)
+                new ChangeRankCommand(this),
+                new UseKeyCommand(this)
         );
     }
 

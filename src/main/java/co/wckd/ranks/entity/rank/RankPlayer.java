@@ -51,7 +51,9 @@ public class RankPlayer {
 
         rank.onActivate(this);
         if (ranks.containsKey(identifier)) {
-            ranks.get(identifier).increaseTime(rank.getTime());
+            Rank containRank = ranks.get(identifier);
+            if (containRank.getTime() == -1) return;
+            containRank.increaseTime(rank.getTime());
             return;
         }
 
@@ -98,6 +100,12 @@ public class RankPlayer {
         active.onChangedFrom(this);
         active = ranks.get(identifier);
         active.onChangeTo(this);
+    }
+
+    public void setActiveRaw(String identifier) {
+        if (!ranks.containsKey(identifier)) return;
+
+        active = ranks.get(identifier);
     }
 
     public void tick(long now, long time) {

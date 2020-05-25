@@ -75,7 +75,7 @@ public class WRRankCommand {
 
         Long time = TimeUtils.millisFromString(timeString);
         if (time == null) {
-            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cIncorrect time string.");
+            execution.sendMessage(" §6§lWICKEDRANKS §8➟ §cIncorrect time string.");
             return;
         }
 
@@ -115,18 +115,18 @@ public class WRRankCommand {
 
         RankPlayer rankPlayer = rankPlayerCache.find(uniqueId);
         if (rankPlayer == null) {
-            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
+            execution.sendMessage(" §6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
             return;
         }
 
         if (!rankPlayer.hasRank(type)) {
-            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
+            execution.sendMessage(" §6§lWICKEDRANKS §8➟ §cThis player doesn't have this rank.");
             return;
         }
 
         Long time = TimeUtils.millisFromString(timeString);
         if (time == null) {
-            execution.sendMessage("§6§lWICKEDRANKS §8➟ §cIncorrect time string.");
+            execution.sendMessage(" §6§lWICKEDRANKS §8➟ §cIncorrect time string.");
             return;
         }
 

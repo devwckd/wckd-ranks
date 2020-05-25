@@ -30,6 +30,7 @@ public class MSToTitleAdapter implements ObjectAdapter<MemorySection, Title> {
 
     public List<String> getTitle(ConfigurationSection memorySection) {
 
+        if (memorySection == null) return null;
         final String type = memorySection.getString("type");
         if (type == null || type.isEmpty()) return null;
         final String titleString = memorySection.getString("title", "");

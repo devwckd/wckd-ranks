@@ -25,9 +25,9 @@ public class RSToRankPlayerAdapter implements ObjectAdapter<ResultSet, RankPlaye
 
             String uuid = null;
             while (resultSet.next()) {
-
                 Rank rank = ADAPTER.adapt(resultSet, ResultSet.class, Rank.class);
                 if (rank == null) continue;
+
                 vips.put(rank.getType().getIdentifier(), rank);
 
                 if (resultSet.getBoolean("is_active") && active == null)
@@ -40,10 +40,11 @@ public class RSToRankPlayerAdapter implements ObjectAdapter<ResultSet, RankPlaye
 
             RankPlayer rankPlayer = new RankPlayer(UUID.fromString(uuid));
             rankPlayer.addRanks(vips);
-            rankPlayer.setActive(active.getType().getIdentifier());
+            rankPlayer.setActiveRaw(active.getType().getIdentifier());
             return rankPlayer;
 
         } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }

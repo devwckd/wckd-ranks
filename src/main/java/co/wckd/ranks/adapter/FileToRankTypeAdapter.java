@@ -6,7 +6,9 @@ import co.wckd.ranks.RanksPlugin;
 import co.wckd.ranks.entity.rank.RankType;
 import co.wckd.ranks.entity.rank.section.Commands;
 import co.wckd.ranks.entity.rank.section.Items;
+import co.wckd.ranks.entity.rank.section.Messages;
 import co.wckd.ranks.entity.rank.section.Title;
+import co.wckd.ranks.util.Strings;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,16 +31,18 @@ public class FileToRankTypeAdapter implements ObjectAdapter<File, RankType> {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         String identifier = fileName.toLowerCase().substring(0, fileName.length() - 4);
-        String prettyName = configuration.getString("pretty_name", identifier);
-        Commands commands = ADAPTER.adapt(configuration.getStringList("commands").toArray(new String[0]), String[].class, Commands.class);
-        Items items = ADAPTER.adapt(configuration.getConfigurationSection("items"), MemorySection.class, Items.class);
-        Title title = ADAPTER.adapt(configuration.getConfigurationSection("title"), MemorySection.class, Title.class);
+        String prettyName = Strings.colorize(configuration.getString("pretty_name", identifier));
+        Commands commands = ADAPTER.adapt(configuration, MemorySection.class, Commands.class);
+        Messages messages = ADAPTER.adapt(configuration, MemorySection.class, Messages.class);
+        Items items = ADAPTER.adapt(configuration, MemorySection.class, Items.class);
+        Title title = ADAPTER.adapt(configuration, MemorySection.class, Title.class);
 
         return RankType
                 .builder()
                 .identifier(identifier)
                 .prettyName(prettyName)
                 .commands(commands)
+                .messages(messages)
                 .items(items)
                 .title(title)
                 .build();

@@ -26,24 +26,38 @@ public class RankListener implements Listener {
     public void onGainRankTime(PlayerGainRankTimeEvent event) {
 
         if (event.isCancelled()) return;
-        if (event.getSource() != PlayerGainRankTimeEvent.Source.COMMAND) return;
+        if (event.getSource() == PlayerGainRankTimeEvent.Source.COMMAND) {
 
-        long time = event.getTime();
-        String messageToSend = time == -1 ? "give_lifetime_rank" : "give_rank";
-        String senderName = event.getExecutor() instanceof Player ? event.getExecutor().getName() : "CONSOLE";
+            long time = event.getTime();
+            String messageToSend = time == -1 ? "give_lifetime_rank" : "give_rank";
+            String senderName = event.getExecutor() instanceof Player ? event.getExecutor().getName() : "CONSOLE";
 
-        Player player = event.getPlayer();
-        RankType type = event.getType();
+            Player player = event.getPlayer();
+            RankType type = event.getType();
 
-        lang.send(player, messageToSend,
-                Pair.of("{player}", senderName),
-                Pair.of("{sender}", player.getName()),
-                Pair.of("{pretty_name}", type.getPrettyName()),
-                Pair.of("{identifier}", type.getIdentifier()),
-                Pair.of("{time}", lang.formatTime(time)));
+            lang.send(player, messageToSend,
+                    Pair.of("{player}", senderName),
+                    Pair.of("{sender}", player.getName()),
+                    Pair.of("{pretty_name}", type.getPrettyName()),
+                    Pair.of("{identifier}", type.getIdentifier()),
+                    Pair.of("{time}", lang.formatTime(time)));
 
+        } else {
+
+            long time = event.getTime();
+            String messageToSend = time == -1 ? "usekey_success_lifetime" : "usekey_success";
+
+            Player player = event.getPlayer();
+            RankType type = event.getType();
+
+            lang.send(player, messageToSend,
+                    Pair.of("{sender}", player.getName()),
+                    Pair.of("{pretty_name}", type.getPrettyName()),
+                    Pair.of("{identifier}", type.getIdentifier()),
+                    Pair.of("{time}", lang.formatTime(time)));
+
+        }
     }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void onLoseRankTime(PlayerLoseRankTimeEvent event) {
 

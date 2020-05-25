@@ -45,10 +45,19 @@ changerank_already_active:
   - "{prefix} &cEste vip ja está ativo."
 
 changerank_changed:
-  - "{prefix} &fVocê trocou o seu vip ativo de &evip {pretty_name_previous} &fpara &e{pretty_name}."
+  - "{prefix} &fVocê trocou o seu vip ativo de &evip {previous_pretty_name} &fpara &e{pretty_name}."
 
 rank_expired:
   - "{prefix} &fO seu &evip {pretty_name}&f expirou."
+
+usekey_usage:
+  - "{prefix} &cUtilize: /usekey <key>."
+
+usekey_validating:
+  - "{prefix} &cValidando a key..."
+
+usekey_not_found:
+  - "{prefix} &cEsta key não existe!"
 
 hour: "hora"
 hours: "horas"

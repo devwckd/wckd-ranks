@@ -24,7 +24,7 @@ public class TimeUtils {
         char last = time.charAt(timeLenght - 1);
 
         String toParse = time;
-        Long multiplier = 1000L;
+        Long multiplier = TIME_VALUES.get('d');
 
         if (Character.isLetter(last)) {
 

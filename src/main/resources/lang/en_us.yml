@@ -31,6 +31,7 @@ ranktime_line_active:
 
 ranktime_footer:
   - " &fChange your active rank using &e/changerank&f."
+  - " "
 
 changerank_usage:
   - "{prefix} &cUsage: /changerank <type>."
@@ -49,6 +50,23 @@ changerank_changed:
 
 rank_expired:
   - "{prefix} &fYour &e{pretty_name} rank &fexpired."
+
+usekey_usage:
+  - "{prefix} &cUsage: /usekey <key>."
+
+usekey_validating:
+  - "{prefix} &cValidating the key..."
+
+usekey_not_found:
+  - "{prefix} &cThis key doesn't exist!"
+
+usekey_success:
+  - "{prefix} &fYou activated a &e{pretty_name} rank &ffor &e{time}&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
+
+usekey_success_lifetime:
+  - "{prefix} &fYou activated a lifetime &e{pretty_name} rank&f."
+  - "&fUse &e/ranktime &fto check your ranks and their times."
 
 hour: "hour"
 hours: "hours"

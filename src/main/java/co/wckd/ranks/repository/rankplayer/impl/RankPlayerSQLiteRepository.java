@@ -34,7 +34,6 @@ public class RankPlayerSQLiteRepository implements RankPlayerRepository {
         try (PreparedStatement statement = databaseConnection.getConnection(true).prepareStatement(FIND_STATEMENT)) {
             statement.setString(1, uuid.toString());
             ResultSet resultSet = statement.executeQuery();
-            System.out.println(resultSet.getClass().getSuperclass());
             return adapter.adapt(resultSet, ResultSet.class, RankPlayer.class);
 
         } catch (Exception exception) {
